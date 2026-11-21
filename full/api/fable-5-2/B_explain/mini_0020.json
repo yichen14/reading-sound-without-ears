@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0020",
+    "answer":  "B",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  1407,
+    "output_tokens":  335,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\":\"In the 0-2 kHz zoom the lowest harmonic sits at roughly 220-230 Hz, with harmonics spaced about 230 Hz apart (second near 450 Hz). The pitch contour varies naturally across the clip (e.g. rises and dips around 2.5-4.3 s), which argues against a robot (D). An F0 of ~225 Hz is too high for a typical man (A) and lower than a typical child\u0027s 300 Hz or more (C), so it best fits an adult woman (B).\",\"answer\":\"B\"}",
+    "error":  null
+}

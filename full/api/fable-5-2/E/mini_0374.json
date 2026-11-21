@@ -1,0 +1,23 @@
+{
+    "qid":  "mini_0374",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  4,
+    "tool_calls":  [
+                       "chroma 6.76 8.45",
+                       "peaks 6.76 8.45 50 1200",
+                       "chroma 6.76 8.45 0.4",
+                       "peaks 6.76 8.45 50 500",
+                       "raw 6.76 8.45 80 500",
+                       "track 6.5 8.6 0.15 60 260",
+                       "peaks 7.2 8 90 290",
+                       "peaks 8 8.45 90 380",
+                       "peaks 6.76 8.45 400 580"
+                   ],
+    "input_tokens":  10,
+    "output_tokens":  2174,
+    "cache_read":  7683,
+    "cache_write":  5012,
+    "text":  "{\"answer\":\"C\"}",
+    "error":  null
+}

@@ -1,0 +1,18 @@
+{
+    "qid":  "mini_0462",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  2,
+    "tool_calls":  [
+                       "info ",
+                       "onsets 0 9.984",
+                       "bands 0 9.984 0.25",
+                       "chroma 0 9.984 0.5"
+                   ],
+    "input_tokens":  6,
+    "output_tokens":  433,
+    "cache_read":  1578,
+    "cache_write":  3146,
+    "text":  "{\"observations\":\"Tonal clip (noisiness 0) with three sustained harmonic regions: an E-minor-like chord ringing/decaying from 0 to ~3.2 s, a new attack at ~3.3 s (broadband level jump, onset detected) giving an A chord until ~7.2 s, and another attack at ~7.3 s giving a D chord to the end. Only two onsets are detected inside the clip, plus the chord already sounding at the start, which makes 3 events. This supports C and rules out 1, 2 and 4.\",\"answer\":\"C\"}",
+    "error":  null
+}

@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0864",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  1440,
+    "output_tokens":  256,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\": \"From 0 to about 2.7 s, harmonic lines descend steadily, which looks like a motor spinning down. A short silence follows, then at about 4.6 s an abrupt broadband onset with harmonics rising quickly to a steady level, a motor spinning up. The tone holds steady (top harmonic near 6.2 kHz) from about 5 to 7.3 s, then spins down again with broadband noise underneath. This pattern of motor spin-up and spin-down with airflow noise and stable whine harmonics fits a vacuum cleaner being switched on and off. It does not fit frying (crackling broadband with no harmonics), a washing machine (slow drum rhythm, sloshing) or typing (discrete clicks).\", \"answer\": \"C\"}",
+    "error":  null
+}

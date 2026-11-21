@@ -1,0 +1,8 @@
+0
+00:00:00.000 --> 00:00:03.800
+Good afternoon. What kind of haircut are you looking for today?
+
+0
+00:00:03.800 --> 00:00:07.200
+Hi there. I'm thinking about getting a fade with a trim on top.
+

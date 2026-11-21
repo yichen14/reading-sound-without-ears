@@ -1,0 +1,27 @@
+{
+    "qid":  "mini_0754",
+    "answer":  "B",
+    "stop_reason":  "end_turn",
+    "rounds":  4,
+    "tool_calls":  [
+                       "info ",
+                       "f0 0 9.984 0.2",
+                       "bands 0 9.984 0.25",
+                       "peaks 0 0.5",
+                       "peaks 4.4 5",
+                       "track 0 9.984 0.1 300 3000",
+                       "bands 0 1 0.064",
+                       "bands 4.2 5.2 0.064",
+                       "onsets 0 9.984",
+                       "track 0 9.984 0.064 1200 1600",
+                       "raw 0 0.9 200 4000",
+                       "raw 4.3 5.2 200 4000",
+                       "raw 7.1 7.8 200 4000"
+                   ],
+    "input_tokens":  10,
+    "output_tokens":  2008,
+    "cache_read":  9760,
+    "cache_write":  10467,
+    "text":  "{\"answer\":\"B\"}",
+    "error":  null
+}

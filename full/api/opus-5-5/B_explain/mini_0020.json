@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0020",
+    "answer":  "B",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  1407,
+    "output_tokens":  439,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\": \"In the 0-2 kHz zoom, the lowest harmonic sits around yâ213 of 240 px, which is about 220 Hz. The next harmonic is at about 440 Hz, and the spacing between harmonics is consistently about 200-230 Hz throughout (e.g., 0-1 s and 5.5-10 s). The 0-8 kHz view shows a natural, varying pitch contour with fricative bursts reaching 6-8 kHz. This points to a human voice, not a monotone robotic one. An F0 of about 220 Hz is typical of an adult woman. It is too high for a typical man (about 100-150 Hz) and lower than a typical child (about 300 Hz or more). This rules in B and rules out A, C and D.\", \"answer\": \"B\"}",
+    "error":  null
+}

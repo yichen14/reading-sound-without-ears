@@ -1,0 +1,19 @@
+{
+    "qid":  "mini_0368",
+    "answer":  "D",
+    "stop_reason":  "end_turn",
+    "rounds":  2,
+    "tool_calls":  [
+                       "chroma 11.2 17.6 1.6",
+                       "peaks 11.2 12.8 40 300",
+                       "peaks 12.8 14.4 40 300",
+                       "peaks 14.4 16 40 300",
+                       "peaks 16 17.6 40 300"
+                   ],
+    "input_tokens":  6,
+    "output_tokens":  949,
+    "cache_read":  1495,
+    "cache_write":  2653,
+    "text":  "{\"answer\":\"D\"}",
+    "error":  null
+}

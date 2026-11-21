@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0864",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  1440,
+    "output_tokens":  394,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\":\"Tonal harmonics glide downward from 0-2 s (motor spinning down) over broadband noise, then near-silence from ~2.8-4.6 s. At ~4.6 s there is an abrupt broadband onset with harmonics sweeping up within ~0.3 s to steady lines (~1, 2, 4, 6.2 kHz) held until ~7.4 s, then gliding down again. Fast motor spin-up/spin-down with strong airflow-like broadband noise fits a vacuum cleaner being switched on and off (C). It rules out frying (A, no steady tonal harmonics expected), typing (D, would be sparse clicks), and makes a washing machine (B, slower spin changes, lower-frequency rumble) less likely.\",\"answer\":\"C\"}",
+    "error":  null
+}

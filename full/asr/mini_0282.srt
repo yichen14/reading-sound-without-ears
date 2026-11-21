@@ -1,0 +1,8 @@
+0
+00:00:00.000 --> 00:00:03.600
+Good afternoon. How can I assist you with your travel plans today?
+
+0
+00:00:03.600 --> 00:00:07.800
+Hi, I'm looking to book a vacation to Hawaii for my family. Can you help with that?
+

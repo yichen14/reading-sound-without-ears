@@ -1,0 +1,23 @@
+{
+    "qid":  "mini_0344",
+    "answer":  "D",
+    "stop_reason":  "end_turn",
+    "rounds":  6,
+    "tool_calls":  [
+                       "chroma 18 30 1",
+                       "chroma 0 18 1",
+                       "info ",
+                       "chroma 22 30 0.5",
+                       "track 20 30 0.5 40 200",
+                       "peaks 25.5 27.5 40 400",
+                       "peaks 27.5 30 40 400",
+                       "peaks 23.5 25.5 40 400",
+                       "chroma 27 30 0.25"
+                   ],
+    "input_tokens":  14,
+    "output_tokens":  2136,
+    "cache_read":  15008,
+    "cache_write":  5713,
+    "text":  "{\"answer\":\"D\"}",
+    "error":  null
+}

@@ -1,0 +1,27 @@
+{
+    "qid":  "mini_0191",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  6,
+    "tool_calls":  [
+                       "info ",
+                       "onsets 0 11.2",
+                       "f0 0 11.2 0.1",
+                       "bands 0.7 5.7 0.064",
+                       "bands 5.7 10.8 0.064",
+                       "onsets 0.7 3",
+                       "onsets 3 6.3",
+                       "onsets 6.8 8.8",
+                       "onsets 8.8 10.8",
+                       "bands 6.8 9.3 0.032",
+                       "bands 0.75 4.5 0.032",
+                       "bands 9.2 10.75 0.032",
+                       "bands 4.85 6.25 0.032"
+                   ],
+    "input_tokens":  14,
+    "output_tokens":  4113,
+    "cache_read":  26092,
+    "cache_write":  12716,
+    "text":  "{\"answer\":\"C\"}",
+    "error":  null
+}

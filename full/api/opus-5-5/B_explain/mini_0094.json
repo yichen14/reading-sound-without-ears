@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0094",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  1412,
+    "output_tokens":  189,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\": \"Both spectrograms show five separate broadband blocks with stable horizontal harmonic lines (roughly 300â2000 Hz), separated by silent gaps. The blocks fall at about 0â2.0 s, 2.8â4.8 s, 5.7â7.7 s, 8.6â10.6 s and 11.5â13.5 s. Each block matches the pattern of one sustained horn blast with an abrupt onset and a decaying tail. Five blasts rules out 3, 4 and 6 and supports option C.\", \"answer\": \"C\"}",
+    "error":  null
+}

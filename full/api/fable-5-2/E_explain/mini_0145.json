@@ -1,0 +1,29 @@
+{
+    "qid":  "mini_0145",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  4,
+    "tool_calls":  [
+                       "info ",
+                       "f0 0 9.44 0.1",
+                       "bands 0 9.44 0.2",
+                       "f0 6.1 7.8 0.05",
+                       "peaks 6.4 7 60 1500",
+                       "peaks 1 1.5 60 1500",
+                       "peaks 4 4.6 60 1500",
+                       "peaks 8.1 9.2 60 1500",
+                       "f0 0.2 3 0.05",
+                       "f0 3.9 5.8 0.05",
+                       "f0 8 9.3 0.05",
+                       "peaks 6.4 7.6 100 350",
+                       "peaks 0.2 2.9 1500 8000",
+                       "peaks 4 5.7 1500 8000",
+                       "peaks 8.1 9.2 1500 8000"
+                   ],
+    "input_tokens":  10,
+    "output_tokens":  2474,
+    "cache_read":  12290,
+    "cache_write":  6226,
+    "text":  "{\"observations\":\"Speech occurs in bursts separated by pauses (~3.0-3.9 s, ~5.8-6.2 s, ~7.8-8.0 s). Bursts at 0.3-2.9 s, 4.0-5.7 s and 8.1-9.2 s all have a low fundamental of about 110-165 Hz with similar contours, consistent with one adult male voice. The burst at 6.3-7.6 s is clearly different: fundamental about 380-470 Hz with almost no energy below 300 Hz and strong 250-1000 Hz bands, consistent with a much higher-pitched second voice (child or woman). I found only these two distinct pitch registers, alternating in turns, which supports two speakers (C) and argues against one (A); there is no evidence of a third voice or of many voices (D, B).\",\"answer\":\"C\"}",
+    "error":  null
+}

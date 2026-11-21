@@ -1,0 +1,23 @@
+{
+    "qid":  "mini_0711",
+    "answer":  "A",
+    "stop_reason":  "end_turn",
+    "rounds":  9,
+    "tool_calls":  [
+                       "info ",
+                       "bands 0 9.984 1",
+                       "f0 0 9.984 0.5",
+                       "onsets 0 9.984",
+                       "raw 2 6 0 8000",
+                       "raw 0 10 0 1000",
+                       "track 0 10 0.25 1500 6000",
+                       "peaks 0 10 100 8000",
+                       "track 0 10 0.25 150 1200"
+                   ],
+    "input_tokens":  20,
+    "output_tokens":  1707,
+    "cache_read":  26216,
+    "cache_write":  6321,
+    "text":  "{\"answer\":\"A\"}",
+    "error":  null
+}

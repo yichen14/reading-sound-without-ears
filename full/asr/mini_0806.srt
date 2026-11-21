@@ -1,0 +1,8 @@
+0
+00:00:00.000 --> 00:00:06.160
+Bla bla bla bla, bla bla bla.
+
+0
+00:00:06.160 --> 00:00:11.300
+Bla, bla, bla, bla, bla bla.
+

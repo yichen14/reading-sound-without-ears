@@ -1,0 +1,44 @@
+0
+00:00:00.000 --> 00:00:00.840
+(slam)
+
+0
+00:00:00.840 --> 00:00:07.680
+- Excuse me?
+
+0
+00:00:07.680 --> 00:00:10.560
+- You have your forms?
+
+0
+00:00:10.560 --> 00:00:11.520
+- Yeah.
+
+0
+00:00:11.520 --> 00:00:12.360
+- Let me see them.
+
+0
+00:00:12.360 --> 00:00:18.000
+- Is there a problem?
+
+0
+00:00:18.000 --> 00:00:19.760
+- Who told you to get in this line?
+
+0
+00:00:19.760 --> 00:00:20.600
+- You did.
+
+0
+00:00:20.600 --> 00:00:24.000
+You were standing at the beginning, you direct me.
+
+0
+00:00:24.000 --> 00:00:25.600
+- Okay, but I didn't tell you to get in this line
+
+0
+00:00:25.600 --> 00:00:27.800
+if you're filling out this particular form.
+

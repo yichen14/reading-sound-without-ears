@@ -1,0 +1,18 @@
+{
+    "qid":  "mini_0001",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  3,
+    "tool_calls":  [
+                       "f0 0 10 0.5",
+                       "info ",
+                       "f0 0 4 0.2",
+                       "peaks 0 10 60 1000"
+                   ],
+    "input_tokens":  8,
+    "output_tokens":  822,
+    "cache_read":  3608,
+    "cache_write":  2646,
+    "text":  "{\"observations\": \"The f0 estimates were weak (salience about 2â13%) but consistent, at roughly 140â175 Hz for most of the clip, with occasional readings near 70 Hz that look like octave errors. The mean-spectrum peaks at 154/169 Hz and their harmonics at about 312/347 Hz support a fundamental of about 150â170 Hz. That falls within the adult male range and well below the typical pitch of a child (250 Hz or more) or a woman (about 180â250 Hz). The spectral centroid is low (728 Hz) and most of the energy sits in the low bands, which also points to a man\u0027s voice. Because the f0 detection was weak, this is not a certain call. Taken together, the evidence favours an adult man over a child, a woman or a teenager.\", \"answer\": \"C\"}",
+    "error":  null
+}

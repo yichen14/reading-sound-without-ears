@@ -1,0 +1,8 @@
+0
+00:00:00.000 --> 00:00:04.120
+I was looking at the temperatures that were ranging from 95 to 100.
+
+0
+00:00:04.120 --> 00:00:09.960
+So we know based on that within an hour, she easily, that vehicle was up to 100.
+

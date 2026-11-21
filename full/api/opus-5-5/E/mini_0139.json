@@ -1,0 +1,18 @@
+{
+    "qid":  "mini_0139",
+    "answer":  "D",
+    "stop_reason":  "end_turn",
+    "rounds":  5,
+    "tool_calls":  [
+                       "f0 0 27.264 0.5",
+                       "info ",
+                       "track 0 27.264 0.5 80 400",
+                       "bands 0 27.264 1"
+                   ],
+    "input_tokens":  12,
+    "output_tokens":  614,
+    "cache_read":  8775,
+    "cache_write":  3499,
+    "text":  "{\"answer\": \"D\"}",
+    "error":  null
+}

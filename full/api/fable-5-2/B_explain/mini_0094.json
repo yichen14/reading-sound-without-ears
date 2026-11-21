@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0094",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  1412,
+    "output_tokens":  161,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\":\"Image 1 shows five separate broadband bursts with steady horizontal tonal lines (horn-like harmonics below ~2 kHz), starting at roughly 0, 2.8, 5.5, 8.2 and 11 s, each lasting about 2 s and separated by silent gaps. Image 2 confirms five identical blocks with the same harmonic lines. This supports five horn blasts (C) and rules out 3, 4 and 6.\",\"answer\":\"C\"}",
+    "error":  null
+}

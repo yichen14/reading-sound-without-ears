@@ -1,0 +1,21 @@
+{
+    "qid":  "mini_0001",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  3,
+    "tool_calls":  [
+                       "info ",
+                       "f0 0 9.984 0.2",
+                       "peaks 0 9.984 60 1000",
+                       "f0 0 3 0.064",
+                       "peaks 5.6 6.1 60 1200",
+                       "peaks 0 0.5 60 1200",
+                       "bands 0 9.984 0.5"
+                   ],
+    "input_tokens":  8,
+    "output_tokens":  1205,
+    "cache_read":  4037,
+    "cache_write":  3946,
+    "text":  "{\"observations\":\"The f0 estimates in voiced stretches sit mostly at 140-175 Hz (e.g. 174 Hz at 0 s gliding down to about 140 Hz by 1.8 s; 145-162 Hz at 2.4-2.8 s; 134-148 Hz at 8.2-8.6 s), though salience is low. A clear harmonic series confirms this: peaks at about 173, 351, 524, 700, 875 and 1048 Hz at 0-0.5 s, and 170, 345 and 467 Hz at 5.6-6.1 s. Energy is concentrated in the 125-500 Hz bands. A mean pitch near 150 Hz with dips to about 135-140 Hz is in the upper adult-male range. It is below the typical range for a woman (about 165-255 Hz) and well below a child\u0027s (250 Hz and above), which argues against B and A. A teenager (D) cannot be excluded on pitch alone, but an animated adult man (C) is the best fit.\",\"answer\":\"C\"}",
+    "error":  null
+}

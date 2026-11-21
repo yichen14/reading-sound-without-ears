@@ -1,0 +1,24 @@
+{
+    "qid":  "mini_0731",
+    "answer":  "F",
+    "stop_reason":  "end_turn",
+    "rounds":  7,
+    "tool_calls":  [
+                       "info ",
+                       "bands 0 9.984 1",
+                       "track 0 9.984 0.5 100 2000",
+                       "f0 0 9.984 0.5",
+                       "track 0 9.984 0.25 60 600",
+                       "onsets 0 9.984",
+                       "chroma 0 9.984 2",
+                       "peaks 0 9.984 50 4000",
+                       "track 0 9.984 0.25 500 4000",
+                       "raw 0 9.984 50 1000"
+                   ],
+    "input_tokens":  16,
+    "output_tokens":  1455,
+    "cache_read":  17730,
+    "cache_write":  5699,
+    "text":  "{\"answer\":\"F\"}",
+    "error":  null
+}

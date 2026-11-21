@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0001",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  484,
+    "output_tokens":  128,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\": \"I can\u0027t hear the clip, so this is a guess from priors, not from any vocal cue. In audio datasets like AudioSet, \u0027male speech, man speaking\u0027 is the most common speech category. With no acoustic evidence such as pitch or formants, the adult man option (C) is the most likely by base rate. Nothing in the audio rules the other options out.\", \"answer\": \"C\"}",
+    "error":  null
+}

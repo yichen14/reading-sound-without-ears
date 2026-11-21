@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0011",
+    "answer":  "A",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  484,
+    "output_tokens":  109,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\": \"I have no access to the audio content, only the question, the options and the 10 s length. The word \u0027roars\u0027 is most typically associated with lions; dogs bark, wolves howl, and bears growl or roar less characteristically. This is a guess based on the wording, not on anything heard, and it favours option A.\", \"answer\": \"A\"}",
+    "error":  null
+}

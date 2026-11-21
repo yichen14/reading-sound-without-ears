@@ -1,0 +1,29 @@
+{
+    "qid":  "mini_0006",
+    "answer":  "A",
+    "stop_reason":  "end_turn",
+    "rounds":  11,
+    "tool_calls":  [
+                       "f0 0 10 0.5",
+                       "info ",
+                       "f0 3 9 0.2",
+                       "track 0 10 0.25 80 400",
+                       "peaks 5.25 6.25 60 2000",
+                       "peaks 1.5 2.5 60 2000",
+                       "raw 5.2 6.2 60 1000",
+                       "track 0 10 0.1 200 700",
+                       "peaks 2.8 3.2 200 3000",
+                       "peaks 7.8 8 200 3000",
+                       "bands 0 10 0.5",
+                       "peaks 6 6.5 80 2000",
+                       "raw 6 6.5 80 1200",
+                       "peaks 6.38 6.9 80 2500",
+                       "f0 6.3 7 0.05"
+                   ],
+    "input_tokens":  24,
+    "output_tokens":  2722,
+    "cache_read":  43061,
+    "cache_write":  8615,
+    "text":  "{\"answer\":\"A\"}",
+    "error":  null
+}

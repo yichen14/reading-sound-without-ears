@@ -1,0 +1,17 @@
+{
+    "qid":  "mini_0408",
+    "answer":  "B",
+    "stop_reason":  "end_turn",
+    "rounds":  4,
+    "tool_calls":  [
+                       "chroma 2.05 10.26 1.026",
+                       "chroma 3.5 8.5 0.5",
+                       "chroma 0 30 1.026"
+                   ],
+    "input_tokens":  10,
+    "output_tokens":  728,
+    "cache_read":  5761,
+    "cache_write":  3607,
+    "text":  "{\"answer\":\"B\"}",
+    "error":  null
+}

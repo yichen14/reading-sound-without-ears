@@ -1,0 +1,4 @@
+0
+00:00:00.000 --> 00:00:02.240
+The wild wind whipped from a wharf.
+

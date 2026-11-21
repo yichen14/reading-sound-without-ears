@@ -1,0 +1,26 @@
+{
+    "qid":  "mini_0355",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  5,
+    "tool_calls":  [
+                       "chroma 8.89 11.11",
+                       "peaks 8.89 11.11 40 1000",
+                       "peaks 8.89 11.11 40 300",
+                       "chroma 6 14 0.5",
+                       "track 8.5 11.5 0.25 40 180",
+                       "peaks 8.89 11.11 1000 4000",
+                       "f0 8.5 11.5 0.125",
+                       "chroma 8.5 11.5 0.2",
+                       "raw 8.5 11.5 40 360",
+                       "raw 4 16 40 170",
+                       "info ",
+                       "peaks 8.89 11.11 40 180"
+                   ],
+    "input_tokens":  12,
+    "output_tokens":  4244,
+    "cache_read":  13598,
+    "cache_write":  8286,
+    "text":  "{\"answer\":\"C\"}",
+    "error":  null
+}

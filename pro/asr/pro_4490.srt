@@ -1,0 +1,24 @@
+0
+00:00:00.000 --> 00:00:09.000
+Good morning!
+
+0
+00:00:09.000 --> 00:00:11.200
+Hope you have a wonderful day ahead.
+
+0
+00:00:11.200 --> 00:00:23.160
+How can I help you today?
+
+0
+00:00:23.160 --> 00:00:25.120
+A nice cup of coffee sounds perfect.
+
+0
+00:00:25.120 --> 00:00:26.400
+Enjoy your coffee break.
+
+0
+00:00:26.400 --> 00:00:28.840
+Let me know if you need any coffee tips or recommendations.
+

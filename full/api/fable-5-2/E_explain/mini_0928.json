@@ -1,0 +1,20 @@
+{
+    "qid":  "mini_0928",
+    "answer":  "B",
+    "stop_reason":  "end_turn",
+    "rounds":  3,
+    "tool_calls":  [
+                       "info ",
+                       "f0 0 2.912 0.064",
+                       "bands 0 2.912 0.1",
+                       "track 0 2.912 0.064 100 500",
+                       "peaks 0.2 0.8 50 2000",
+                       "peaks 0.85 1.65 50 2000"
+                   ],
+    "input_tokens":  8,
+    "output_tokens":  1035,
+    "cache_read":  4314,
+    "cache_write":  3894,
+    "text":  "{\"observations\":\"The clip is only 2.9 s long. A steady 77 Hz tone with harmonics at about 155, 231, 309 and 387 Hz (plus 275 Hz) runs through the whole clip and looks like background hum or music, not speech. The only voice-like activity is one short burst at roughly 0.9â1.7 s, with a pitch near 240â250 Hz and formant energy around 500â1500 Hz, followed by a brief noisy consonant-like patch near 1.8â1.9 s and then decay. I found no second pitch range or alternating speaker turns, and such a short clip could hardly hold three, five or six speakers. This favours a single speaker (B) and argues against A, C and D.\",\"answer\":\"B\"}",
+    "error":  null
+}

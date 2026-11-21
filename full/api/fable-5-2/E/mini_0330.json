@@ -1,0 +1,27 @@
+{
+    "qid":  "mini_0330",
+    "answer":  "A",
+    "stop_reason":  "end_turn",
+    "rounds":  5,
+    "tool_calls":  [
+                       "chroma 0 12 0.5",
+                       "onsets 0 12",
+                       "info ",
+                       "track 2 10 0.25 60 260",
+                       "peaks 3.6 5.4 60 1000",
+                       "peaks 5.7 7.4 60 1000",
+                       "peaks 7.7 9.6 60 1000",
+                       "peaks 5.2 5.9 60 1000",
+                       "peaks 6.1 7.4 60 1000",
+                       "chroma 12 30 0.5",
+                       "peaks 3.4 4.3 60 1000",
+                       "chroma 3.4 10 0.2",
+                       "chroma 3.5 7.5"
+                   ],
+    "input_tokens":  12,
+    "output_tokens":  3143,
+    "cache_read":  14579,
+    "cache_write":  8400,
+    "text":  "{\"answer\":\"A\"}",
+    "error":  null
+}

@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading Sound Without Ears</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --surface-2: #f2f1ed;
+  --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
+  --opus: #2a78d6; --fable: #eb6834;
+  --good: #006300; --bad: #d03b3b;
+  --accent: #2a78d6; --mark: #ffd166;
+  --div-neg: #e34948; --div-pos: #2a78d6; --div-mid: #f0efec;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --surface-2: #232321;
+    --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+    --opus: #3987e5; --fable: #d95926;
+    --good: #0ca30c; --bad: #e66767;
+    --accent: #6da7ec; --div-neg: #e66767; --div-pos: #3987e5; --div-mid: #383835;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --surface-2: #232321;
+  --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+  --opus: #3987e5; --fable: #d95926;
+  --good: #0ca30c; --bad: #e66767;
+  --accent: #6da7ec; --div-neg: #e66767; --div-pos: #3987e5; --div-mid: #383835;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--page); color: var(--ink);
+  font: 17px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 48px 16px 96px; }
+.wide { margin-left: calc(50% - min(50vw, 520px) + 8px); margin-right: calc(50% - min(50vw, 520px) + 8px); }
+@media (max-width: 1060px) { .wide { margin-left: 0; margin-right: 0; } }
+h1 { font-size: 2.25rem; line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 12px; text-wrap: balance; }
+h2 { font-size: 1.5rem; line-height: 1.3; margin: 56px 0 12px; letter-spacing: -0.01em; }
+h3 { font-size: 1.15rem; margin: 36px 0 8px; }
+p { margin: 0 0 16px; }
+a { color: var(--accent); }
+.sub { color: var(--ink-2); font-size: 1.05rem; margin-bottom: 8px; }
+.meta { color: var(--muted); font-size: 0.875rem; margin-bottom: 32px; }
+.tldr { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin: 24px 0 32px; }
+.tldr b.lab { display: block; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.tldr p:last-child { margin-bottom: 0; }
+ul.setup { list-style: none; padding: 0; margin: 0 0 16px; }
+ul.setup li { padding: 6px 0; border-bottom: 1px solid var(--grid); }
+ul.setup li:last-child { border-bottom: 0; }
+code, .mono { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.88em; }
+.callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 16px; margin: 20px 0; color: var(--ink-2); }
+figure { margin: 28px 0; }
+figcaption { color: var(--ink-2); font-size: 0.9rem; margin-top: 10px; }
+figcaption b { color: var(--ink); }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+th, td { padding: 7px 8px; text-align: right; border-bottom: 1px solid var(--grid); }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--ink-2); font-weight: 600; border-bottom: 1px solid var(--axis); }
+tr.ours td { font-weight: 600; }
+.tablewrap { overflow-x: auto; }
+.pill { display: inline-block; font-size: 0.72rem; padding: 1px 7px; border-radius: 99px; border: 1px solid var(--border); color: var(--ink-2); vertical-align: 2px; }
+.key { display: inline-block; width: 10px; height: 10px; border-radius: 2px; vertical-align: 0; margin-right: 5px; }
+
+/* ---------- charts ---------- */
+.chart { overflow: hidden; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 18px 14px; }
+.legend { display: flex; gap: 16px; font-size: 0.85rem; color: var(--ink-2); margin-bottom: 10px; flex-wrap: wrap; }
+.bars { display: grid; grid-template-columns: 150px 1fr; row-gap: 10px; column-gap: 12px; align-items: center; }
+.bars .lab { font-size: 0.85rem; color: var(--ink-2); line-height: 1.25; }
+.bars .lab small { color: var(--muted); display: block; }
+.track { position: relative; height: 34px; }
+.track .bar { position: absolute; left: 0; height: 14px; border-radius: 0 4px 4px 0; cursor: default; }
+.track .bar.o { top: 1px; background: var(--opus); }
+.track .bar.f { top: 19px; background: var(--fable); }
+.track .val { position: absolute; font-size: 0.75rem; color: var(--ink-2); transform: translateY(-1px); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.track .ref { position: absolute; top: -4px; bottom: -4px; border-left: 1px dashed var(--axis); }
+.axisx { position: relative; height: 18px; margin-left: 162px; font-size: 0.72rem; color: var(--muted); }
+.axisx span { position: absolute; transform: translateX(-50%); }
+.multiples { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.multiples .mini h4 { margin: 0 0 6px; font-size: 0.85rem; color: var(--ink-2); font-weight: 600; }
+.mini .mb { display: grid; grid-template-columns: 22px 1fr; column-gap: 6px; row-gap: 5px; align-items: center; font-size: 0.75rem; color: var(--muted); }
+.mini .t2 { position: relative; height: 18px; }
+.mini .t2 .bar { position: absolute; left: 0; height: 7px; border-radius: 0 3px 3px 0; }
+.mini .t2 .bar.o { top: 1px; background: var(--opus); }
+.mini .t2 .bar.f { top: 10px; background: var(--fable); }
+.mini .t2 .ref { position: absolute; top: -2px; bottom: -2px; border-left: 1px dashed var(--axis); }
+@media (max-width: 640px) { .multiples { grid-template-columns: 1fr; } .bars { grid-template-columns: 96px 1fr; } .axisx { margin-left: 108px; } }
+#tip { position: fixed; pointer-events: none; z-index: 50; background: var(--surface); color: var(--ink); border: 1px solid var(--border);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12); border-radius: 8px; padding: 7px 10px; font-size: 0.8rem; line-height: 1.4; opacity: 0; transition: opacity .08s; max-width: 260px; }
+.split-grp { margin: 4px 0 14px; }
+.split-grp h4 { margin: 0 0 6px; font-size: 0.9rem; }
+.split-grp h4 small { font-weight: 400; color: var(--muted); }
+.split-rows { display: grid; grid-template-columns: 150px 1fr; row-gap: 6px; column-gap: 12px; align-items: center; }
+.split-rows .lab { font-size: 0.8rem; color: var(--ink-2); }
+.dtrack { position: relative; height: 18px; }
+.dtrack .zero { position: absolute; top: -3px; bottom: -3px; border-left: 1px solid var(--axis); }
+.dtrack .bar { position: absolute; top: 2px; height: 14px; }
+.dtrack .bar.pos { border-radius: 0 4px 4px 0; } .dtrack .bar.neg { border-radius: 4px 0 0 4px; }
+.dtrack .bar.o { background: var(--opus); } .dtrack .bar.f { background: var(--fable); }
+.dtrack .val { position: absolute; top: 0; font-size: 0.72rem; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
+@media (max-width: 640px) { .split-rows { grid-template-columns: 96px 1fr; } }
+.heat td.c { text-align: center; font-weight: 600; min-width: 64px; }
+.heat td.c span { display: inline-block; min-width: 44px; padding: 2px 6px; border-radius: 4px; }
+
+/* ---------- audio examples ---------- */
+.ex { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin: 28px 0; }
+.ex-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; margin-bottom: 6px; }
+.ex-head .q { font-weight: 600; flex: 1 1 320px; }
+.ex-head .id { font-size: 0.75rem; color: var(--muted); }
+.opts { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 14px; padding: 0; list-style: none; font-size: 0.85rem; }
+.opts li { border: 1px solid var(--border); border-radius: 8px; padding: 3px 9px; color: var(--ink-2); }
+.opts li.gold { border-color: var(--good); color: var(--ink); }
+.opts li.gold::after { content: " ✓ correct"; color: var(--good); font-size: 0.75rem; font-weight: 600; }
+.player { display: grid; grid-template-columns: 44px 1fr; gap: 0 8px; }
+.yax { position: relative; font-size: 0.68rem; color: var(--muted); text-align: right; }
+.yax span { position: absolute; right: 0; transform: translateY(-50%); white-space: nowrap; }
+.stage { position: relative; width: 100%; aspect-ratio: 4 / 1; background: #000; border-radius: 6px; overflow: hidden; cursor: ew-resize; touch-action: none; outline: none; }
+.stage:focus-visible { box-shadow: 0 0 0 3px var(--accent); }
+.stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; user-select: none; -webkit-user-drag: none; }
+.stage .played { position: absolute; top: 0; bottom: 0; left: 0; background: rgba(255,255,255,0.06); pointer-events: none; }
+.stage .head { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 6px rgba(0,0,0,.8); pointer-events: none; }
+.stage .head::before { content: ""; position: absolute; top: -1px; left: -5px; border: 6px solid transparent; border-top-color: #fff; }
+.ann { position: absolute; pointer-events: none; }
+.ann.pt { top: 0; bottom: 0; border-left: 1.5px dashed var(--mark); }
+.ann.pt i, .ann.sp i, .ann.hl i { position: absolute; font-style: normal; font-size: 0.66rem; color: #111; background: var(--mark); padding: 0 4px; border-radius: 3px; white-space: nowrap; }
+.ann.pt i { top: 3px; left: 3px; }
+.ann.sp { top: 0; height: 100%; border-top: 3px solid var(--mark); background: rgba(255,209,102,0.08); }
+.ann.sp i { top: 5px; left: 4px; }
+.ann.hl { left: 0; right: 0; border-top: 1.5px dashed var(--mark); }
+.ann.hl i { right: 4px; top: -16px; }
+.noann .ann { display: none; }
+.xax { position: relative; height: 18px; font-size: 0.68rem; color: var(--muted); grid-column: 2; }
+.xax span { position: absolute; transform: translateX(-50%); }
+.ctrl { grid-column: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 6px; font-size: 0.8rem; color: var(--ink-2); }
+.ctrl button { font: inherit; border: 1px solid var(--border); background: var(--surface-2); color: var(--ink); border-radius: 8px; padding: 4px 10px; cursor: pointer; }
+.ctrl button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+.ctrl button.play { min-width: 74px; font-weight: 600; }
+.ctrl .time { font-variant-numeric: tabular-nums; min-width: 84px; }
+.ctrl .sp { flex: 1; }
+.answers { margin-top: 14px; font-size: 0.82rem; }
+.answers table td, .answers table th { padding: 5px 6px; text-align: center; }
+.answers table td:first-child, .answers table th:first-child { text-align: left; }
+.ok { color: var(--good); font-weight: 700; }
+.no { color: var(--bad); font-weight: 700; }
+details.said { margin-top: 12px; font-size: 0.86rem; }
+details.said summary { cursor: pointer; color: var(--ink-2); font-weight: 600; }
+details.said .who { font-weight: 600; margin-top: 10px; }
+details.said .who .key { margin-right: 6px; }
+details.said blockquote { margin: 4px 0 0; padding: 0 0 0 12px; border-left: 2px solid var(--grid); color: var(--ink-2); }
+.ex .note { margin-top: 12px; font-size: 0.9rem; color: var(--ink-2); }
+.ex .note b { color: var(--ink); }
+.trace { font-family: ui-monospace, Consolas, monospace; font-size: 0.78rem; background: var(--surface-2); border-radius: 8px; padding: 8px 10px; margin-top: 10px; overflow-x: auto; white-space: pre; color: var(--ink-2); }
+.hint { font-size: 0.85rem; color: var(--muted); }
+pre.bib { font-size: 0.78rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px; overflow-x: auto; }
+ol.find > li { margin-bottom: 12px; }
+a.cite { text-decoration: none; font-size: 0.85em; white-space: nowrap; }
+a.cite:hover { text-decoration: underline; }
+ol.refs { padding-left: 2.2em; font-size: 0.86rem; color: var(--ink-2); }
+ol.refs li { margin-bottom: 8px; scroll-margin-top: 16px; overflow-wrap: anywhere; }
+ol.refs li:target { background: var(--surface-2); border-radius: 4px; }
+ol.refs a { color: var(--accent); }
+.printonly { display: none; }
+@page { size: A4; margin: 14mm 13mm; }
+@media print {
+  :root { color-scheme: light; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; font-size: 10pt; line-height: 1.5; }
+  main { max-width: none; padding: 0; }
+  .wide { margin-left: 0; margin-right: 0; }
+  h1 { font-size: 22pt; } h2 { font-size: 15pt; margin-top: 22pt; break-after: avoid; } h3 { font-size: 12pt; break-after: avoid; }
+  .ctrl, #tip, p.hint.ctl, .ann.pt i, .xax span:nth-child(even) { display: none; }
+  .printonly { display: block; }
+  .ex { padding: 10pt; margin: 12pt 0; border-color: #ccc; }
+  .ex, .ex-head, .opts, .player, .answers, .chart, .tldr, .trace, ol.find > li, tr { break-inside: avoid; }
+  .tablewrap { overflow: visible; }
+  .trace { white-space: pre-wrap; word-break: break-all; }
+  details.said > summary { list-style: none; }
+  details.said > summary::-webkit-details-marker { display: none; }
+  details.said blockquote { break-inside: avoid; }
+  .stage { cursor: default; }
+  .stage .head, .stage .played { display: none; }
+}
+</style>
+</head>
+<body>
+<div id="tip" role="tooltip"></div>
+<main>
+
+<h1>Reading Sound Without Ears</h1>
+<div class="sub">Given pictures of sound and no audio at all, frontier language models come within three points of human listeners on an audio benchmark. What they read from the pictures is mostly <i>when</i> things happen, not <i>how</i> they sound, and that is why they will still need to hear.</div>
+<div class="meta">November 2026 &middot; Models: Claude Fable 5.2 and Claude Opus 5.5, neither given any audio input &middot; Code and data: <a href="https://github.com/yichen14/reading-sound-without-ears">github.com/yichen14/reading-sound-without-ears</a></div>
+
+<div class="tldr">
+  <b class="lab">TL;DR</b>
+  <p>We gave two frontier LLMs <b>no audio at all</b> and asked them the 1,000 questions of MMAU test-mini, the standard audio-understanding benchmark. Instead of sound they got a spectrogram picture, a numeric spectrogram they could query with a tool, a Whisper transcript, or nothing.</p>
+  <p><b>Spectrogram + transcript reaches 79.4%</b> (Fable 5.2). That is above most audio-native models with published test-mini scores, including Gemini 3.0 Pro (78.4%), 2.4 points below the newest Qwen Omni models (~81.8%), and 2.8 points below human listeners (82.2%). On speech questions it scores 85.9%, higher than any per-domain speech score we found for an audio model.</p>
+  <p><b>A spectrogram lifts sound questions by 11 points</b> over a control that tells the model only the clip length (68.8% &rarr; 80.2%). The models count taps, order events, find a 2.7&nbsp;kHz alarm tone and read a speaker's pitch off harmonic spacing.</p>
+  <p><b>But what they read is timing.</b> On questions about <i>when</i> things happen (event order, counting) the picture adds 25 points for Fable (46% &rarr; 70%). On questions about <i>how</i> something sounds (melody, harmony, timbre, texture, genre, emotion; 266 questions) the same picture <i>costs</i> both models 8&ndash;10 points. Even with an onset detector, the models picked the right tempo on fewer than half of the explicit tempo questions.</p>
+  <p><b>Our argument: a picture of sound gives a language model a beat track, not ears.</b> That is enough to cut a music video on the drum hits, and not enough to follow the melody, the harmony or the voice. To understand finer acoustic detail, models will need audio itself, or learned audio features, as input.</p>
+  <p><b>Control for clip length.</b> The duration alone is worth 2&ndash;3 points, mostly on counting questions; without it in the baseline, image gains look bigger than they are.</p>
+  <p>Listen to every example below: press play, or drag across the spectrogram to scrub. The code, prompts, every raw model response and the per-question scores are on <a href="https://github.com/yichen14/reading-sound-without-ears">GitHub</a>.</p>
+  <p class="printonly"><i>This PDF is a static print of the interactive page; the audio players are only available in the HTML version.</i></p>
+</div>
+
+<figure class="wide">
+  <div class="ex" data-id="mini_0054"></div>
+  <figcaption><b>Figure 1:</b> Asked for the order of four sounds, both models answered wrongly from the question alone. With the spectrogram both got it right. The yellow marks are the four events, placed at the times the models wrote down; drag across the picture to hear each one.</figcaption>
+</figure>
+
+<p>Large language models now read images well, but most of them still cannot take audio as input. A spectrogram turns sound into an image, so a natural question is how much of an audio task a vision-language model can solve just by looking. Earlier attempts gave mixed answers. GPT-4o reached 59% on a 10-class environmental-sound task from spectrograms <a class="cite" href="#ref-1">[1]</a>, while on word-level speech spectrograms vision models rarely performed above chance <a class="cite" href="#ref-2">[2]</a>. We wanted a cleaner measurement: a full public benchmark, the strongest current models, and controls that separate what the picture adds from what the model already knows.</p>
+<p>The first half of this post is the surprising part: how far reading alone goes, and what exactly the models read. The second half is the argument it leads to. Almost everything the pictures add is about <i>when</i> sounds happen; the questions about <i>how</i> they sound get worse, and that gap is the case for giving models real audio input.</p>
+
+<h2>Setup</h2>
+<ul class="setup">
+  <li><b>Benchmark:</b> MMAU test-mini <a class="cite" href="#ref-3">[3]</a>, all 1,000 multiple-choice questions (333 sound, 334 music, 333 speech), 27 sub-skills from event counting to chord recognition. Clips are mostly 10&ndash;30 s.</li>
+  <li><b>Models:</b> Claude Fable 5.2 and Claude Opus 5.5 through the API, adaptive thinking, effort <code>high</code>, one independent request per question. No refusal fallback, so every answer comes from the named model.</li>
+  <li><b>What the model gets</b> (one condition per run, 6 conditions &times; 2 models &times; 1,000 questions):
+    <br><b>A</b>&nbsp;question and options only &middot; <b>L</b>&nbsp;A + the clip length in seconds &middot; <b>B</b>&nbsp;L + two spectrogram images (0&ndash;8&nbsp;kHz and a 0&ndash;2&nbsp;kHz zoom) &middot; <b>E</b>&nbsp;L + a <code>query_spectrogram</code> tool over the numeric spectrogram (no image) &middot; <b>D</b>&nbsp;L + a Whisper-small transcript <a class="cite" href="#ref-4">[4]</a> &middot; <b>C</b>&nbsp;B + D.</li>
+  <li><b>Not allowed:</b> any audio input, any audio encoder, any caption model. The only learned audio component is Whisper in C and D.</li>
+  <li><b>Scoring:</b> the model must return <code>{"answer": "&lt;letter&gt;"}</code> under a JSON schema, so there is no answer parsing. The answer key is read only by the scorer. Paired comparisons use McNemar's test <a class="cite" href="#ref-5">[5]</a> (with continuity correction) on the same 1,000 questions.</li>
+  <li><b>Cost:</b> $%%COST_TOTAL%% for everything on this page, two thirds of it Fable's tool-use runs.</li>
+</ul>
+
+<h2>Headline results</h2>
+<figure class="wide">
+  <div class="chart" id="chart-main"></div>
+  <figcaption><b>Figure 2:</b> Accuracy on all 1,000 questions. The dashed lines mark random guessing (25.5%) and human listeners (82.2%). Hover a bar for exact numbers.</figcaption>
+</figure>
+<figure class="wide">
+  <div class="chart" id="chart-tasks"></div>
+  <figcaption><b>Figure 3:</b> The same results split by domain. Spectrograms (B) help sound, transcripts (D) carry speech, and nothing beats the text-only prior on music.</figcaption>
+</figure>
+
+<p>Four things stand out. First, <b>the text-only baseline is already high</b>: 62.9% for Opus and 66.9% for Fable, with no information about the audio at all. Second, <b>the clip length is a real signal</b> (%%L_SUMMARY%%, both significant at p&nbsp;&lt;&nbsp;0.05): long clips mean more events and more words. Against that control, the images add 0.7 points for Fable and lose 0.8 for Opus overall. Third, that near-zero total hides a split by domain: for Fable, images add 11.4 points on sound (p&nbsp;&lt;&nbsp;0.001), cost 5.3 on music (p&nbsp;&lt;&nbsp;0.05) and 3.9 on speech. Fourth, <b>the best configuration, C, is competitive with audio-native models</b>.</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>System</th><th>Hears audio?</th><th>Avg</th><th>Sound</th><th>Music</th><th>Speech</th><th>Source</th></tr></thead>
+  <tbody>
+    <tr><td>Human listeners</td><td>yes</td><td>82.2</td><td>86.3</td><td>78.2</td><td>82.2</td><td><a class="cite" href="#ref-3">[3]</a></td></tr>
+    <tr><td>Qwen3.5-Omni-Plus <span class="pill">vendor</span></td><td>yes</td><td>81.9</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td><a class="cite" href="#ref-6">[6]</a></td></tr>
+    <tr><td>Qwen3.8-Omni-Flash <span class="pill">vendor</span></td><td>yes</td><td>81.8</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td><a class="cite" href="#ref-6">[6]</a></td></tr>
+    <tr class="ours"><td>Fable 5.2, spectrogram + transcript (C)</td><td>no</td><td>79.4</td><td>80.2</td><td>72.2</td><td>85.9</td><td>ours</td></tr>
+    <tr><td>Gemini 3.0 Pro <span class="pill">3rd party</span></td><td>yes</td><td>78.4</td><td>79.6</td><td>72.2</td><td>83.5</td><td><a class="cite" href="#ref-7">[7]</a></td></tr>
+    <tr><td>Step-Audio 2 (32B)</td><td>yes</td><td>77.6</td><td>84.0</td><td>73.6</td><td>75.2</td><td><a class="cite" href="#ref-7">[7]</a>, <a class="cite" href="#ref-8">[8]</a></td></tr>
+    <tr><td>Gemini 3.8 Flash <span class="pill">via Qwen report</span></td><td>yes</td><td>76.9</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td><a class="cite" href="#ref-6">[6]</a></td></tr>
+    <tr class="ours"><td>Fable 5.2, transcript only (D)</td><td>no</td><td>75.8</td><td>70.6</td><td>71.6</td><td>85.3</td><td>ours</td></tr>
+    <tr class="ours"><td>Opus 5.5, spectrogram + transcript (C)</td><td>no</td><td>74.7</td><td>74.2</td><td>64.1</td><td>85.9</td><td>ours</td></tr>
+    <tr><td>SAR-LM (Gemini 2.5 Pro + symbolic audio features)</td><td>no</td><td>73.5</td><td>73.3</td><td>65.0</td><td>82.3</td><td><a class="cite" href="#ref-9">[9]</a></td></tr>
+    <tr><td>Gemini 2.5 Pro</td><td>yes</td><td>71.6</td><td>75.1</td><td>68.3</td><td>71.5</td><td><a class="cite" href="#ref-7">[7]</a></td></tr>
+    <tr class="ours"><td>Fable 5.2, spectrogram only (B)</td><td>no</td><td>70.3</td><td>80.2</td><td>69.8</td><td>61.0</td><td>ours</td></tr>
+    <tr class="ours"><td>Fable 5.2, question + clip length (L)</td><td>no</td><td>69.6</td><td>68.8</td><td>75.1</td><td>64.9</td><td>ours</td></tr>
+    <tr class="ours"><td>Fable 5.2, question only (A)</td><td>no</td><td>66.9</td><td>66.1</td><td>72.5</td><td>62.2</td><td>ours</td></tr>
+    <tr><td>GPT-4o Audio</td><td>yes</td><td>62.5</td><td>64.6</td><td>56.3</td><td>66.7</td><td><a class="cite" href="#ref-7">[7]</a></td></tr>
+  </tbody>
+</table>
+</div>
+<p class="hint">External numbers come from vendor reports <a class="cite" href="#ref-6">[6]</a>, a third-party leaderboard <a class="cite" href="#ref-7">[7]</a> and papers, and may use a different MMAU revision or a different answer matcher; treat gaps of 1&ndash;2 points as noise. Rows marked "ours" are from this post.</p>
+
+<h2>What the models actually read</h2>
+<p>Accuracy tells us <i>that</i> the picture helps, not <i>how</i>. To find out, we re-ran 32 representative questions and asked each model to write down the concrete evidence it used, with times and frequencies, before answering. We then checked those readings against the audio and against independent measurements from the numeric spectrogram. In the examples below, the yellow overlays are placed exactly where the models said they saw something. Toggle them off to check for yourself.</p>
+<p class="hint ctl">Controls: click or drag on a spectrogram to seek, <b>Space</b> to play or pause when it has focus, <b>&larr;/&rarr;</b> to step 0.5 s. The zoom view shows 0&ndash;2&nbsp;kHz, where voice pitch lives.</p>
+
+<h3>1. Counting and ordering events</h3>
+<p>This is the single biggest win. MMAU's "temporal event reasoning" questions ask how many times something happens, in what order, or which sound lasts longest. From the question alone the models do little better than chance (Fable 31%, Opus 40%), and knowing the clip length helps only a little (42% and 56%). With a spectrogram, Fable reaches 75%. Opus gains less from the picture (58%) but reaches 71% when it can query onset times numerically. Discrete events are easy to see: each tap, horn or moo is a separate bright block with dark gaps around it.</p>
+<div class="ex" data-id="mini_0061"></div>
+<div class="ex" data-id="mini_0080"></div>
+<div class="ex" data-id="mini_0068"></div>
+
+<h3>2. Spectral fingerprints</h3>
+<p>For "what is this sound" questions, the models describe shapes a trained listener would recognize: a narrow tone held at one frequency, harmonics gliding up and down with a motor, broadband noise that swells every seven seconds. They then reason from those shapes to a source, ruling options out one by one.</p>
+<div class="ex" data-id="mini_0854"></div>
+<div class="ex" data-id="mini_0864"></div>
+<div class="ex" data-id="mini_0825"></div>
+
+<h3>3. Pitch as a ruler</h3>
+<p>The 0&ndash;2&nbsp;kHz zoom turns out to matter. Both models measure the spacing between harmonics in pixels, convert it to hertz, and use the fundamental frequency as evidence: about 220&nbsp;Hz suggests an adult woman, about 100&nbsp;Hz a man. The readings are approximate (one pixel in the zoom is about 8&nbsp;Hz, and the first example below is off by about 50&nbsp;Hz), but often good enough. The same ruler separates a cello from a violin and tells speakers apart in a conversation.</p>
+<div class="ex" data-id="mini_0001"></div>
+<div class="ex" data-id="mini_0145"></div>
+<div class="ex" data-id="mini_0352"></div>
+<div class="ex" data-id="mini_0391"></div>
+
+<h3>4. A cautionary example: speech density, or just duration?</h3>
+<p>Some speech questions have answer options that differ by a factor of two or more, such as "how many words contain a stressed phoneme: 3, 11, 15 or 32". Without the words, the models estimate the number of syllables from the density of voiced bursts and multiply by a typical speaking rate. The explanation is plausible and the answer is right. But the L control shows the picture was not needed: the clip length alone leads both models to the same answer. This is the pattern behind most of the image "gains" on speech, and it is why we compare images against L rather than against the bare question.</p>
+<div class="ex" data-id="mini_0174"></div>
+
+<h2>Where reading breaks</h2>
+<p>The failures are as instructive as the wins. In most of them the measurement is right and the inference is wrong.</p>
+<h3>Correct pitch, wrong concept</h3>
+<p>Five "what kind of vocalist" music questions were answered correctly by both models from the text alone and wrongly by both with the spectrogram. In four of them both models picked "female" where the key says male, and the explanations say why: they measured a high fundamental. Pop and rock singers, however, routinely sing with a fundamental of 300&ndash;700&nbsp;Hz. The pitch ruler that works for speaking voices does not transfer to singing, and the models do not know that. Our independent pitch tracker confirms the reading (around 730&nbsp;Hz here), so this is a reasoning error, not a vision error.</p>
+<div class="ex" data-id="mini_0542"></div>
+<h3>Chords are below the resolution of the picture</h3>
+<p>Chord questions ask which chord sounds in a time window, sometimes with labels like <code>E:9(*1)/3</code>. Reading this needs individual note frequencies within a few hertz. The models honestly attempt it, converting pixel rows to note names, but at 8&nbsp;Hz per pixel neighbouring semitones in the bass are one or two pixels apart. Both models picked the same wrong window here, with near-identical reasoning. Numbers fix this case: with the <code>chroma</code> command in condition E, both models asked for pitch-class profiles window by window and picked the right answer, here and on a second chord-window question (mini_0385). Across all music "temporal reasoning" questions, though, the tool (46&ndash;45%) only partly closes the gap to the text-only answer (52&ndash;50%).</p>
+<div class="ex" data-id="mini_0423"></div>
+<h3>Ambiguous textures</h3>
+<p>Wind and rain both look like broadband noise. Opus reads short vertical streaks as raindrops; Fable reads the gusty level changes as wind. Only one can be right, and which one wins can change between runs.</p>
+<div class="ex" data-id="mini_0711"></div>
+
+<h2>Pictures versus numbers</h2>
+<p>Condition E replaces the images with a tool that computes measurements from the numeric spectrogram: band levels over time, spectral peaks, a pitch tracker, onset detection, chroma and raw values. The model decides what to ask. Opus calls the tool %%E_CALLS_O%% times per question on average, Fable %%E_CALLS_F%% times.</p>
+<p>The two approaches end up close on aggregate (Opus: E 66.6% vs B 64.3%; Fable: E 69.8% vs B 70.3%), but they fail differently. <b>Precise numbers can expose how fragile a correct answer was.</b> On the speaker question from section 3, the tool reports a clean harmonic series at 173, 351, 524 and 700&nbsp;Hz: the speaker's fundamental is about 175&nbsp;Hz, a low female voice inside the range where male and female voices overlap. Both models measured this correctly with the tool, applied a textbook threshold and answered "adult man", which is wrong. From the picture they had estimated 200&ndash;250&nbsp;Hz, an overestimate from coarse pixel reading, and answered "woman", which is right. The image condition got this question right for a partly wrong reason. <b>Numbers win when the question is about counting</b>: <code>onsets</code> returns exact times, and Opus with the tool beats Opus with the picture on temporal sound questions (71% vs 58%).</p>
+<div class="trace" id="trace-0001"></div>
+<figure>
+  <div class="chart" id="chart-tools"></div>
+  <figcaption><b>Figure 4:</b> Accuracy in condition E by the number of tool calls the model chose to make. Accuracy falls as calls rise: the models keep querying when the evidence stays unclear, so long searches mark hard questions rather than buy better answers. Opus answered %%E_ZERO_O%% questions without calling the tool at all.</figcaption>
+</figure>
+
+<h2>A beat track, not ears</h2>
+<p>Put the wins and the failures side by side and a single pattern explains most of them. We grouped MMAU's sub-skills by what the question actually needs from the audio. <b>Timing</b> questions ask when something happens, in what order, or how many times. <b>Sound-quality</b> questions ask what something sounds like: the melody, the harmony, the instrument, the texture, the genre, the emotion in a voice. Then we measured what the picture (B) and the numeric tool (E) add over the clip-length control.</p>
+<figure class="wide">
+  <div class="chart" id="chart-split"></div>
+  <figcaption><b>Figure 5:</b> Change in accuracy over the clip-length control (L), in percentage points, for three groups of sub-skills. "When things happen" is sound temporal-event reasoning plus speech counting (77 questions); "How it sounds" pools eight music and speech sub-skills on melody, harmony, instrumentation, texture, genre and emotion (266 questions). Labels give the accuracy before and after; p values from McNemar's test on the same questions. Hover a bar for the counts.</figcaption>
+</figure>
+<p>The split is sharp. For timing, the picture is the best evidence we tried: Fable gains 25 points (p&nbsp;&lt;&nbsp;0.001), and Opus gains 13 when it can query onset times numerically (not significant at this sample size). For sound quality, the same picture is <b>worse than nothing</b>: Opus loses 10 points (p&nbsp;&lt;&nbsp;0.001) and Fable 8 (p&nbsp;&lt;&nbsp;0.01) compared with answering from the question and the clip length alone. The models do not ignore the picture on these questions. They read it, find something that looks like evidence (a high harmonic, a dense texture, a gliding line), and talk themselves out of the answer their priors would have given. Melody is the extreme case: Fable drops from 76% to 48% on melodic-structure questions.</p>
+<p>Rhythm sits in between. A drum hit is a bright vertical stripe, exactly the kind of event the models count well, and the picture helps Opus on rhythm questions (52% &rarr; 65%, not significant). But turning hits into a tempo is harder than it looks. On the %%TEMPO_N%% questions that ask for an explicit tempo or BPM, the models called the onset detector on at least %%TEMPO_ON%% of them in condition E and still answered only %%TEMPO_EO%% (Opus) and %%TEMPO_EF%% (Fable) correctly. Half-time and double-time readings, swing and tempo-marking vocabulary all sit on top of the raw onset times.</p>
+<h3>What this looks like in practice: music videos</h3>
+<p>This profile matches what we see when Claude edits a music video from a spectrogram or a waveform of the track. It reliably finds the kick and snare hits and places cuts on them, because those are discrete, high-contrast events: the same thing it counts so well on MMAU. What it cannot do from the picture is follow the parts of the song a viewer actually feels: where the melody lifts, when the harmony turns, when the singer's voice breaks or softens. Those live in fine pitch relationships and spectral detail that the picture blurs, which is exactly where accuracy falls in Figure 5. The result is a video that is on the beat but not with the music.</p>
+<h3>Why reading cannot close the gap</h3>
+<p>Some of the loss is resolution. In the 0&ndash;2&nbsp;kHz zoom one pixel is about 8&nbsp;Hz, so neighbouring semitones in the bass are one or two pixels apart; in the full view a pixel spans tens of hertz. Timbre lives in the shape of the spectral envelope and in attack transients a few milliseconds long, below what a 1,000-pixel-wide picture of a 10-second clip can show. Better pictures help at the margin, and better tools help with specific questions (the <code>chroma</code> command fixed both chord-window questions above). But each fix is a hand-built feature for one question type, and on music overall even the numeric tool does not beat answering from the question (Fable: 28 gained, 47 lost against L).</p>
+<p>The rest is that the models have learned to <i>reason about</i> sound from text, not to <i>perceive</i> it. "High fundamental means female" is a textbook rule that is right for speech and wrong for singing; a listener would never make that mistake, because they hear the voice, not a number. The transcript experiments make the same point from the other side: once the words are given as text, speech accuracy jumps to 85.9%, because the hard part was always perception and the reasoning was already there.</p>
+<p>A small pilot on MMAU-Pro <a class="cite" href="#ref-10">[10]</a>, a harder benchmark with longer clips and fewer questions answerable from text, points the same way. On 27 questions, the spectrogram added at most one correct answer over the clip-length control for either model, while a transcript added eight.<sup>*</sup> Reading pictures of sound is a real capability, and for timing it is a strong one. For everything that depends on how a sound actually sounds, a model will need to hear it.</p>
+<p class="hint"><sup>*</sup>We sampled 30 MMAU-Pro questions and dropped 3 whose audio is corrupted in the public release: every ~10-minute sound clip in the dataset (205 questions) is mostly identical-channel white noise at &minus;6.5&nbsp;dBFS, with about 30&nbsp;s of real audio. We verified the extracted files against the archive's CRC32 checksums.</p>
+
+<h2>More findings</h2>
+<ol class="find">
+  <li><b>Clip length is a cheap, real signal, and a necessary control.</b> Adding a single number (the duration) raises accuracy by 2.2 points for Opus and 2.7 for Fable (both p&nbsp;&lt;&nbsp;0.05). The gains concentrate in phonemic-stress word counts and event counting, where longer clips simply mean bigger answers. Judged against the bare question, spectrograms look like a 1.4&ndash;3.4 point overall win; judged against L, the overall win disappears and only the sound-domain gain survives.</li>
+  <li><b>MMAU has a strong text-only floor.</b> Always answering "A" scores 39.5%, because the correct option is the first one 38% of the time in four-option questions. Both models' text-only answers follow the same skew (A chosen 35&ndash;37% of the time) and they score 63&ndash;67% without any audio. Benchmark gains below this floor say nothing about hearing.</li>
+  <li><b>The transcript does almost all of the work on speech.</b> C and D are tied on speech (85.9% vs 85.3&ndash;85.9%). Speaker-role mapping jumps from 22% to 100% with a transcript. Images add nothing for speech, but on top of a transcript they still add 9.6 points on sound questions for Fable (p&nbsp;&lt;&nbsp;0.001).</li>
+  <li><b>Fable reads pictures better; Opus gains more from the tool.</b> Fable beats Opus on every condition, by 6.0 points with images (p&nbsp;&lt;&nbsp;0.001) and 4.7 with transcripts and images. Opus's spectrogram reading is weaker on music, where images cost it 6.3 points (p&nbsp;&lt;&nbsp;0.05); with the numeric tool it loses less.</li>
+  <li><b>Different evidence fixes different questions.</b> For Fable, at least one of the five conditions is right on 92.0% of questions, but a majority vote over B, C, D and E reaches only 80.6% (+1.2 over C). Knowing <i>which</i> evidence to trust per question is the open problem.</li>
+  <li><b>On hard questions, pictures alone stop helping.</b> On MMAU's "hard" tier Fable scores 62% with the question only, 62% with spectrograms and 77% once the transcript is added. On "medium" and "easy" questions the spectrogram alone is worth 3&ndash;5 points.</li>
+  <li><b>Readings are noisy run to run.</b> Re-asking the same 32 questions with an explanation request changed the answer in %%FLIP%% of model&ndash;question pairs. Single-run differences of one or two points between conditions should not be over-read; the significant ones are marked above.</li>
+</ol>
+<figure class="wide">
+  <div class="chart"><div class="tablewrap"><table class="heat" id="heat"></table></div></div>
+  <figcaption><b>Figure 6:</b> Change in accuracy (percentage points) by sub-skill, for the 26 sub-skills with at least 20 questions, sorted by Fable's image gain over the clip-length control. The first column is what the clip length alone adds; the next four are what images (B) and the numeric tool (E) add on top of it; the last is what images add on top of a transcript. Blue means the evidence helped, red that it hurt. Hover a cell for the underlying accuracies.</figcaption>
+</figure>
+
+<h2>Related work</h2>
+<p><b>Spectrograms as images.</b> Dixit, Heller and Donahue <a class="cite" href="#ref-1">[1]</a> showed that GPT-4o can classify ESC-10 environmental sounds from spectrogram images with 59.0% cross-validated accuracy. Loakman, James and Lin <a class="cite" href="#ref-2">[2]</a> asked vision-language models to identify spoken words from spectrograms and found that zero-shot and fine-tuned models rarely perform above chance, consistent with our speech results without a transcript. CaReCoS <a class="cite" href="#ref-11">[11]</a> reports a best accuracy of 51.2% on spectrograms of cardiac, respiratory and cough sounds.</p>
+<p><b>Language models over audio features.</b> Closest to our best configuration, SAR-LM <a class="cite" href="#ref-9">[9]</a> converts audio into symbolic features (sound-event tags, Whisper transcripts, note and chord transcriptions) and gives them to Gemini 2.5 Pro as text, reaching 73.5% on MMAU test-mini. AudioToolAgent <a class="cite" href="#ref-12">[12]</a> lets a language model orchestrate audio-language models as tools and reports up to 77.5% on MMAU. Caption cascades are weaker: GPT-4o reading Qwen2-Audio captions scores 57.3% on test-mini <a class="cite" href="#ref-3">[3]</a>, and 69.3% with Gemini 2.5 Pro captions, where Lu et al. <a class="cite" href="#ref-13">[13]</a> observe performance plateauing at around 70%. Unlike these systems, our models get no learned audio component beyond Whisper, and in conditions B and E none at all.</p>
+
+<h2>Limitations and what comes next</h2>
+<p>Each condition was run once, so differences under about two points are within run-to-run noise. External numbers come from vendor reports and a third-party leaderboard that may use a different MMAU revision or answer matcher. MMAU itself has label noise: some chord labels appear to be off by a semitone, and at least one clip labeled as a man speaking has a measured fundamental near 230&nbsp;Hz, which is unusual for an adult male voice. Finally, the explanations are what the models <i>report</i> using; the overlays let you check them, but they are not a causal attribution.</p>
+<ul>
+  <li><b>Audio features as input:</b> the direct test of our argument is to give the same models a learned audio embedding next to the picture and measure how much of the sound-quality gap in Figure 5 closes.</li>
+  <li><b>Routing evidence:</b> a cheap first pass deciding whether to look, query or transcribe.</li>
+  <li><b>Better pictures:</b> log-frequency and constant-Q views for music, where linear axes waste resolution. We expect these to help harmony at the margin, not timbre or emotion.</li>
+  <li><b>MMAU-Pro at scale:</b> our pilot <a class="cite" href="#ref-10">[10]</a> is 27 questions. A full run would need to exclude the 205 long-audio questions whose clips are corrupted in the public release.</li>
+</ul>
+
+<h2>Reproducibility</h2>
+<p><b>Code and data:</b> <a href="https://github.com/yichen14/reading-sound-without-ears">github.com/yichen14/reading-sound-without-ears</a>. The repository has every script used here (Windows PowerShell with small C# helpers, no Python), the exact prompts and tool definition, all 12,000+ raw API responses with token counts, the per-question scores behind every number and figure in this post, the Whisper transcripts, the MMAU-Pro pilot and the corrupted-audio scan. It does not redistribute MMAU audio or questions; the scripts download them from the official release.</p>
+<p>Spectrograms are rendered with FFmpeg's <code>showspectrumpic</code> filter <a class="cite" href="#ref-14">[14]</a> from 16&nbsp;kHz mono audio (magma, 85&nbsp;dB range for 0&ndash;8&nbsp;kHz; 70&nbsp;dB for the 0&ndash;2&nbsp;kHz zoom). The numeric spectrogram uses a 2,048-point FFT with a 512-sample hop. Transcripts come from whisper.cpp <a class="cite" href="#ref-15">[15]</a> with the multilingual Whisper small model <a class="cite" href="#ref-4">[4]</a> and automatic language detection. Questions and audio are the public MMAU test-mini release on Hugging Face (<code>gamma-lab-umd/MMAU-test-mini</code>). Every request, response and token count is logged per question.</p>
+
+<h2 id="references">References</h2>
+<ol class="refs">
+  <li id="ref-1">S. Dixit, L. M. Heller and C. Donahue. Vision Language Models Are Few-Shot Audio Spectrogram Classifiers. NeurIPS 2024 Workshops. arXiv:2411.12058, 2024. <a href="https://arxiv.org/abs/2411.12058">arxiv.org/abs/2411.12058</a></li>
+  <li id="ref-2">T. Loakman, J. James and C. Lin. Seeing isn't Hearing: Benchmarking Vision Language Models at Interpreting Spectrograms. In <i>Proceedings of IJCNLP-AACL 2025</i>, pages 79&ndash;86, Mumbai, India, 2025. doi:10.18653/v1/2025.ijcnlp-short.7. <a href="https://aclanthology.org/2025.ijcnlp-short.7/">aclanthology.org/2025.ijcnlp-short.7</a></li>
+  <li id="ref-3">S. Sakshi, U. Tyagi, S. Kumar, A. Seth, R. Selvakumar, O. Nieto, R. Duraiswami, S. Ghosh and D. Manocha. MMAU: A Massive Multi-Task Audio Understanding and Reasoning Benchmark. In <i>ICLR</i>, 2025. arXiv:2410.19168. <a href="https://arxiv.org/abs/2410.19168">arxiv.org/abs/2410.19168</a></li>
+  <li id="ref-4">A. Radford, J. W. Kim, T. Xu, G. Brockman, C. McLeavey and I. Sutskever. Robust Speech Recognition via Large-Scale Weak Supervision. In <i>ICML</i>, 2023. arXiv:2212.04356. <a href="https://arxiv.org/abs/2212.04356">arxiv.org/abs/2212.04356</a></li>
+  <li id="ref-5">Q. McNemar. Note on the Sampling Error of the Difference Between Correlated Proportions or Percentages. <i>Psychometrika</i>, 12(2):153&ndash;157, 1947.</li>
+  <li id="ref-6">Qwen Team. Qwen3.8-Omni: Towards Native Omni-Modal Agents. arXiv:2609.25611, 2026. <a href="https://arxiv.org/abs/2609.25611">arxiv.org/abs/2609.25611</a></li>
+  <li id="ref-7">SOTA2 Research. Audio Understanding on MMAU (test-mini) leaderboard. Accessed November 2026. <a href="https://www.sota2.com/research/sota/audio-understanding-on-mmau-test-mini">sota2.com/research/sota/audio-understanding-on-mmau-test-mini</a></li>
+  <li id="ref-8">B. Wu, C. Yan, C. Hu, C. Yi, C. Feng, F. Tian, et al. Step-Audio 2 Technical Report. arXiv:2507.16632, 2025. <a href="https://arxiv.org/abs/2507.16632">arxiv.org/abs/2507.16632</a></li>
+  <li id="ref-9">T. Taheri, Y. Ma and E. Benetos. SAR-LM: Symbolic Audio Reasoning with Large Language Models. arXiv:2511.06483, 2025. <a href="https://arxiv.org/abs/2511.06483">arxiv.org/abs/2511.06483</a></li>
+  <li id="ref-10">S. Kumar, Š. Sedláček, V. Lokegaonkar, F. López, W. Yu, N. Anand, et al. MMAU-Pro: A Challenging and Comprehensive Benchmark for Holistic Evaluation of Audio General Intelligence. arXiv:2508.13992, 2025. <a href="https://arxiv.org/abs/2508.13992">arxiv.org/abs/2508.13992</a></li>
+  <li id="ref-11">H. Rajgarhia, S. Ojha, A. Pothanapalli, R. Lokesh, A. Shaik, A. Mukherji and P. Desikan. CaReCoS: A Spectrogram based Visual Benchmark for Cardiac, Respiratory and Cough Sounds. arXiv:2607.03356, 2026. <a href="https://arxiv.org/abs/2607.03356">arxiv.org/abs/2607.03356</a></li>
+  <li id="ref-12">G. Wijngaard, E. Formisano, M. Dumontier and J. Jitsev. AudioToolAgent: An Agentic Framework for Audio-Language Models. arXiv:2510.02995, 2025. <a href="https://arxiv.org/abs/2510.02995">arxiv.org/abs/2510.02995</a></li>
+  <li id="ref-13">K.-H. Lu, S.-W. Fu, C.-H. H. Yang, Z. Chen, S.-F. Huang, C.-K. Yang, et al. How Auditory Knowledge in LLM Backbones Shapes Audio Language Models: A Holistic Evaluation. arXiv:2603.19195, 2026. <a href="https://arxiv.org/abs/2603.19195">arxiv.org/abs/2603.19195</a></li>
+  <li id="ref-14">FFmpeg Developers. FFmpeg multimedia framework, <code>showspectrumpic</code> filter. Software. <a href="https://ffmpeg.org/ffmpeg-filters.html#showspectrumpic">ffmpeg.org/ffmpeg-filters.html#showspectrumpic</a></li>
+  <li id="ref-15">G. Gerganov et al. whisper.cpp: port of OpenAI's Whisper model in C/C++. Software. <a href="https://github.com/ggml-org/whisper.cpp">github.com/ggml-org/whisper.cpp</a></li>
+</ol>
+
+</main>
+<script>
+const DATA = /*__DATA__*/;
+</script>
+<script>
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+  const tip = $('#tip');
+  function showTip(e, html) { tip.innerHTML = html; tip.style.opacity = 1; moveTip(e); }
+  function moveTip(e) { const w = tip.offsetWidth, h = tip.offsetHeight; let x = e.clientX + 14, y = e.clientY + 14; if (x + w > innerWidth - 8) x = e.clientX - w - 14; if (y + h > innerHeight - 8) y = e.clientY - h - 14; tip.style.left = x + 'px'; tip.style.top = y + 'px'; }
+  function hideTip() { tip.style.opacity = 0; }
+  function hover(node, html) { node.addEventListener('pointerenter', e => showTip(e, html)); node.addEventListener('pointermove', moveTip); node.addEventListener('pointerleave', hideTip); }
+
+  const COND = { A: 'A · question only', L: 'L · + clip length', B: 'B · + spectrogram', E: 'E · + spectrogram tool', D: 'D · + transcript', C: 'C · + spectrogram & transcript' };
+  const ORDER = ['A', 'L', 'B', 'E', 'D', 'C'];
+  const legend = () => { const l = el('div', 'legend'); l.innerHTML = '<span><span class="key" style="background:var(--opus)"></span>Opus 5.5</span><span><span class="key" style="background:var(--fable)"></span>Fable 5.2</span><span style="color:var(--muted)">┊ dashed: random 25.5% · human 82.2%</span>'; return l; };
+  const X0 = 20, X1 = 90; const px = v => ((v - X0) / (X1 - X0) * 100);
+
+  // ---------- Figure 2 ----------
+  (function () {
+    const root = $('#chart-main'); root.appendChild(legend());
+    const g = el('div', 'bars');
+    ORDER.forEach(c => {
+      const o = DATA.res.opus[c], f = DATA.res.fable[c]; if (!o || !f) return;
+      const lab = el('div', 'lab'); lab.innerHTML = COND[c].replace(' · ', '<small>') + '</small>'; lab.innerHTML = '<b>' + c + '</b> <small>' + COND[c].split(' · ')[1] + '</small>';
+      const t = el('div', 'track');
+      [[25.5], [82.2]].forEach(([v]) => { const r = el('div', 'ref'); r.style.left = px(v) + '%'; t.appendChild(r); });
+      [['o', o.all, 'Opus 5.5'], ['f', f.all, 'Fable 5.2']].forEach(([k, v, name]) => {
+        const b = el('div', 'bar ' + k); b.style.width = px(v) + '%'; t.appendChild(b);
+        const s = el('div', 'val', v.toFixed(1) + '%'); s.style.left = 'calc(' + px(v) + '% + 6px)'; s.style.top = (k === 'o' ? 0 : 18) + 'px'; t.appendChild(s);
+        hover(b, '<b>' + name + ' · ' + c + '</b><br>' + COND[c].split(' · ')[1] + '<br>' + v.toFixed(1) + '% of 1,000 questions');
+      });
+      g.appendChild(lab); g.appendChild(t);
+    });
+    root.appendChild(g);
+    const ax = el('div', 'axisx'); [20, 30, 40, 50, 60, 70, 80, 90].forEach(v => { const s = el('span', null, v + '%'); s.style.left = px(v) + '%'; ax.appendChild(s); }); root.appendChild(ax);
+  })();
+
+  // ---------- Figure 3 ----------
+  (function () {
+    const root = $('#chart-tasks'); root.appendChild(legend());
+    const m = el('div', 'multiples');
+    const human = { sound: 86.3, music: 78.2, speech: 82.2 };
+    ['sound', 'music', 'speech'].forEach(task => {
+      const box = el('div', 'mini'); box.appendChild(el('h4', null, task[0].toUpperCase() + task.slice(1) + ' (n = ' + DATA.n[task] + ')'));
+      const g = el('div', 'mb');
+      ORDER.forEach(c => {
+        const o = DATA.res.opus[c], f = DATA.res.fable[c]; if (!o || !f) return;
+        g.appendChild(el('div', null, c));
+        const t = el('div', 't2');
+        const r = el('div', 'ref'); r.style.left = px(human[task]) + '%'; t.appendChild(r);
+        [['o', o[task], 'Opus 5.5'], ['f', f[task], 'Fable 5.2']].forEach(([k, v, name]) => { const b = el('div', 'bar ' + k); b.style.width = px(v) + '%'; t.appendChild(b); hover(b, '<b>' + name + ' · ' + c + ' · ' + task + '</b><br>' + v.toFixed(1) + '%<br><span style="color:var(--muted)">human: ' + human[task] + '%</span>'); });
+        g.appendChild(t);
+      });
+      box.appendChild(g);
+      const ax = el('div', 'axisx'); ax.style.marginLeft = '28px'; [20, 50, 80].forEach(v => { const s = el('span', null, v + '%'); s.style.left = px(v) + '%'; ax.appendChild(s); }); box.appendChild(ax);
+      m.appendChild(box);
+    });
+    root.appendChild(m);
+  })();
+
+  // ---------- Figure 4 ----------
+  (function () {
+    const root = $('#chart-tools'); const l = el('div', 'legend'); l.innerHTML = '<span><span class="key" style="background:var(--opus)"></span>Opus 5.5</span><span><span class="key" style="background:var(--fable)"></span>Fable 5.2</span>'; root.appendChild(l);
+    const g = el('div', 'bars'); g.style.gridTemplateColumns = '96px 1fr';
+    const sc = v => v * 0.75; // 0-100% mapped to 75% of the track, leaving room for labels
+    DATA.tools.opus.forEach((o, i) => {
+      const f = DATA.tools.fable[i];
+      g.appendChild(Object.assign(el('div', 'lab'), { innerHTML: '<b>' + o.k + '</b> <small>tool calls</small>' }));
+      const t = el('div', 'track');
+      [['o', o, 'Opus 5.5'], ['f', f, 'Fable 5.2']].forEach(([k, d, name]) => {
+        const b = el('div', 'bar ' + k); b.style.width = sc(d.acc) + '%'; t.appendChild(b);
+        const s = el('div', 'val', d.acc.toFixed(0) + '%  (n=' + d.n + ')'); s.style.left = 'calc(' + sc(d.acc) + '% + 6px)'; s.style.top = (k === 'o' ? 0 : 18) + 'px'; t.appendChild(s);
+        hover(b, '<b>' + name + '</b>, ' + o.k + ' tool calls<br>' + d.n + ' questions, ' + d.acc.toFixed(1) + '% correct');
+      });
+      g.appendChild(t);
+    });
+    root.appendChild(g);
+    const ax = el('div', 'axisx'); ax.style.marginLeft = '108px'; [0, 25, 50, 75, 100].forEach(v => { const s = el('span', null, v + '%'); s.style.left = sc(v) + '%'; ax.appendChild(s); }); root.appendChild(ax);
+  })();
+
+  // ---------- Figure 5: timing vs sound quality (diverging) ----------
+  (function () {
+    const root = $('#chart-split'); if (!root || !DATA.split) return;
+    const l = el('div', 'legend'); l.innerHTML = '<span><span class="key" style="background:var(--opus)"></span>Opus 5.5</span><span><span class="key" style="background:var(--fable)"></span>Fable 5.2</span><span style="color:var(--muted)">bars: points gained or lost vs. clip length only (L)</span>'; root.appendChild(l);
+    const LO = -30, HI = 55; const pos = v => (v - LO) / (HI - LO) * 100; const z = pos(0);
+    const CN = { B: 'picture (B)', E: 'numeric tool (E)' }, MN = { opus: 'Opus', fable: 'Fable' };
+    DATA.split.forEach(g => {
+      const box = el('div', 'split-grp'); const h = el('h4'); h.innerHTML = g.label + ' <small>· ' + g.sub + ' · n = ' + g.n + '</small>'; box.appendChild(h);
+      const rows = el('div', 'split-rows');
+      g.rows.forEach(r => {
+        const d = Math.round((r.to - r.from) * 10) / 10;
+        rows.appendChild(el('div', 'lab', MN[r.m] + ' · ' + CN[r.c]));
+        const t = el('div', 'dtrack'); const zl = el('div', 'zero'); zl.style.left = z + '%'; t.appendChild(zl);
+        const b = el('div', 'bar ' + (r.m === 'opus' ? 'o' : 'f') + ' ' + (d >= 0 ? 'pos' : 'neg'));
+        b.style.left = Math.min(z, pos(d)) + '%'; b.style.width = Math.abs(pos(d) - z) + '%'; t.appendChild(b);
+        const v = el('div', 'val', (d > 0 ? '+' : '') + d.toFixed(1) + '  (' + Math.round(r.from) + '→' + Math.round(r.to) + '%' + (r.p !== 'n.s.' ? ', p' + r.p : '') + ')');
+        if (d >= 0) v.style.left = 'calc(' + pos(d) + '% + 6px)'; else v.style.right = 'calc(' + (100 - pos(d)) + '% + 6px)';
+        v.dataset.short = (d > 0 ? '+' : '') + d.toFixed(1) + (r.p !== 'n.s.' ? ' (p' + r.p + ')' : ''); v.dataset.long = v.textContent;
+        t.appendChild(v);
+        hover(b, '<b>' + MN[r.m] + ', ' + CN[r.c] + '</b><br>' + g.label + ' (n = ' + g.n + ')<br>L ' + r.from + '% → ' + r.to + '%<br>' + r.gain + ' questions gained, ' + r.loss + ' lost · p ' + r.p);
+        rows.appendChild(t);
+      });
+      box.appendChild(rows); root.appendChild(box);
+    });
+    // labels that would spill out of the chart fall back to the short form (the tooltip keeps the details)
+    const fit = () => { const p = root.getBoundingClientRect(); root.querySelectorAll('.dtrack .val').forEach(v => { v.textContent = v.dataset.long; const r = v.getBoundingClientRect(); if (r.right > p.right - 4 || r.left < p.left + 4) v.textContent = v.dataset.short; }); };
+    requestAnimationFrame(fit); addEventListener('resize', fit); addEventListener('beforeprint', fit);
+    const ax = el('div', 'axisx'); ax.style.marginLeft = (innerWidth <= 640 ? 108 : 162) + 'px'; [-30, -20, -10, 0, 10, 20, 30, 40, 50].forEach(v => { const s = el('span', null, (v > 0 ? '+' : '') + v); s.style.left = pos(v) + '%'; ax.appendChild(s); }); root.appendChild(ax);
+  })();
+
+  // ---------- Figure 6: heat table ----------
+  (function () {
+    const t = $('#heat'); const cols = DATA.heatCols;
+    const th = el('tr'); th.appendChild(el('th', null, 'Sub-skill')); th.appendChild(el('th', null, 'n')); cols.forEach(c => th.appendChild(el('th', null, c.label))); t.appendChild(el('thead')).appendChild(th);
+    const tb = el('tbody'); t.appendChild(tb);
+    const maxAbs = 45;
+    DATA.heat.forEach(r => {
+      const tr = el('tr'); tr.appendChild(el('td', null, r.task + ' · ' + r.name)); tr.lastChild.style.textAlign = 'left'; const n = el('td', null, r.n); tr.appendChild(n);
+      cols.forEach((c, i) => {
+        const d = r.d[i]; const td = el('td', 'c'); const s = el('span', null, (d > 0 ? '+' : '') + d.toFixed(0));
+        const a = Math.min(1, Math.abs(d) / maxAbs);
+        s.style.background = d === 0 ? 'transparent' : 'color-mix(in oklab, var(' + (d > 0 ? '--div-pos' : '--div-neg') + ') ' + Math.round(a * 85) + '%, var(--div-mid))';
+        s.style.color = a > 0.55 ? '#fff' : 'var(--ink)';
+        td.appendChild(s); tr.appendChild(td);
+        hover(td, '<b>' + r.name + '</b><br>' + c.label + ': ' + r.from[i] + '% → ' + r.to[i] + '%<br>' + (d > 0 ? '+' : '') + d.toFixed(1) + ' points (n = ' + r.n + ')');
+      });
+      tb.appendChild(tr);
+    });
+  })();
+
+  // ---------- tool trace ----------
+  (function () { const t = $('#trace-0001'); if (!t || !DATA.trace) return; t.textContent = DATA.trace; })();
+
+  // ---------- audio examples ----------
+  let current = null;
+  const fmt = s => { s = Math.max(0, s); return (Math.floor(s / 60)) + ':' + (s % 60).toFixed(1).padStart(4, '0'); };
+  document.querySelectorAll('.ex[data-id]').forEach(box => {
+    const d = DATA.ex[box.dataset.id]; if (!d) { box.textContent = 'missing ' + box.dataset.id; return; }
+    const head = el('div', 'ex-head');
+    head.appendChild(el('span', 'q', d.question));
+    head.appendChild(el('span', 'pill', d.task + ' · ' + d.sub));
+    head.appendChild(el('span', 'id', d.id + ' · ' + d.dur.toFixed(1) + ' s'));
+    box.appendChild(head);
+    const ul = el('ul', 'opts'); d.choices.forEach((c, i) => { const li = el('li', d.gold.includes('ABCDEFGH'[i]) ? 'gold' : '', '(' + 'ABCDEFGH'[i] + ') ' + c); ul.appendChild(li); }); box.appendChild(ul);
+
+    const pl = el('div', 'player');
+    const yax = el('div', 'yax'); pl.appendChild(yax);
+    const stage = el('div', 'stage'); stage.tabIndex = 0; stage.setAttribute('role', 'slider'); stage.setAttribute('aria-label', 'Playback position for ' + d.id + '; drag or use arrow keys');
+    stage.setAttribute('aria-valuemin', '0'); stage.setAttribute('aria-valuemax', d.dur.toFixed(1));
+    const img = el('img'); img.alt = 'Spectrogram of ' + d.id; img.draggable = false; stage.appendChild(img);
+    const annLayer = el('div'); annLayer.style.cssText = 'position:absolute;inset:0;pointer-events:none'; stage.appendChild(annLayer);
+    const played = el('div', 'played'); stage.appendChild(played);
+    const headLine = el('div', 'head'); stage.appendChild(headLine);
+    pl.appendChild(stage);
+    const xax = el('div', 'xax'); pl.appendChild(xax);
+    const step = d.dur > 20 ? 5 : d.dur > 8 ? 2 : 1; for (let t = 0; t <= d.dur + 1e-6; t += step) { const s = el('span', null, t + 's'); s.style.left = (t / d.dur * 100) + '%'; xax.appendChild(s); }
+    const ctrl = el('div', 'ctrl');
+    const play = el('button', 'play', '▶ Play'); const time = el('span', 'time', '0:00.0 / ' + fmt(d.dur));
+    const vFull = el('button', null, '0–8 kHz'), vLow = el('button', null, '0–2 kHz zoom'), vAnn = el('button', null, 'Model annotations');
+    ctrl.append(play, time, el('span', 'sp'), vFull, vLow, vAnn); pl.appendChild(ctrl);
+    box.appendChild(pl);
+
+    const audio = new Audio(); audio.preload = 'none'; audio.src = d.audio;
+    let view = d.view || 'full', ann = true;
+    function drawAnn() {
+      annLayer.innerHTML = ''; const fmax = view === 'full' ? 8000 : 2000;
+      (d.marks.spans || []).forEach(m => { const a = el('div', 'ann sp'); a.style.left = (m[0] / d.dur * 100) + '%'; a.style.width = ((m[1] - m[0]) / d.dur * 100) + '%'; if (m[2]) a.appendChild(el('i', null, m[2])); annLayer.appendChild(a); });
+      (d.marks.points || []).forEach(m => { const a = el('div', 'ann pt'); a.style.left = (m[0] / d.dur * 100) + '%'; if (m[1]) a.appendChild(el('i', null, m[1])); annLayer.appendChild(a); });
+      (d.marks.hlines || []).forEach(m => { if (m[0] > fmax) return; const a = el('div', 'ann hl'); a.style.top = ((1 - m[0] / fmax) * 100) + '%'; if (m[1]) a.appendChild(el('i', null, m[1])); annLayer.appendChild(a); });
+    }
+    function setView(v) {
+      view = v; img.src = v === 'full' ? d.full : d.low; vFull.setAttribute('aria-pressed', v === 'full'); vLow.setAttribute('aria-pressed', v === 'low');
+      yax.innerHTML = ''; const ticks = v === 'full' ? [8, 6, 4, 2, 0] : [2, 1.5, 1, 0.5, 0]; const top = ticks[0];
+      ticks.forEach(k => { const s = el('span', null, (k >= 1 || k === 0 ? k : k * 1000) + (k >= 1 || k === 0 ? ' kHz' : ' Hz')); s.style.top = ((1 - k / top) * 100) + '%'; yax.appendChild(s); });
+      yax.style.height = stage.offsetHeight + 'px'; drawAnn();
+    }
+    vFull.onclick = () => setView('full'); vLow.onclick = () => setView('low');
+    vAnn.setAttribute('aria-pressed', 'true'); vAnn.onclick = () => { ann = !ann; stage.classList.toggle('noann', !ann); vAnn.setAttribute('aria-pressed', ann); };
+    if (!d.marks || (!d.marks.spans && !d.marks.points && !d.marks.hlines)) vAnn.style.display = 'none';
+    setView(view); new ResizeObserver(() => { yax.style.height = stage.offsetHeight + 'px'; }).observe(stage);
+
+    function render() { const t = audio.currentTime || 0; const p = Math.min(100, t / d.dur * 100); headLine.style.left = p + '%'; played.style.width = p + '%'; time.textContent = fmt(t) + ' / ' + fmt(d.dur); stage.setAttribute('aria-valuenow', t.toFixed(1)); }
+    let raf = 0; function loop() { render(); if (!audio.paused) raf = requestAnimationFrame(loop); }
+    function doPlay() { if (current && current !== audio) current.pause(); current = audio; const p = audio.play(); if (p) p.catch(() => {}); }
+    audio.addEventListener('play', () => { play.textContent = '❚❚ Pause'; cancelAnimationFrame(raf); loop(); });
+    audio.addEventListener('pause', () => { play.textContent = '▶ Play'; render(); });
+    audio.addEventListener('ended', () => { play.textContent = '▶ Play'; render(); });
+    play.onclick = () => { audio.paused ? doPlay() : audio.pause(); };
+    let pos = 0; const now = () => (audio.readyState > 0 ? audio.currentTime : pos);
+    function seekTo(t) { t = Math.max(0, Math.min(d.dur - 0.01, t)); pos = t; if (audio.readyState === 0) { if (audio.networkState !== 2) audio.load(); audio.addEventListener('loadedmetadata', () => { audio.currentTime = t; render(); }, { once: true }); } else audio.currentTime = t; headLine.style.left = (t / d.dur * 100) + '%'; played.style.width = (t / d.dur * 100) + '%'; time.textContent = fmt(t) + ' / ' + fmt(d.dur); }
+    const tAt = e => { const r = stage.getBoundingClientRect(); return (e.clientX - r.left) / r.width * d.dur; };
+    let dragging = false;
+    stage.addEventListener('pointerdown', e => { dragging = true; stage.setPointerCapture(e.pointerId); seekTo(tAt(e)); if (audio.paused) doPlay(); e.preventDefault(); stage.focus({ preventScroll: true }); });
+    stage.addEventListener('pointermove', e => { if (dragging) seekTo(tAt(e)); });
+    stage.addEventListener('pointerup', () => { dragging = false; });
+    stage.addEventListener('pointercancel', () => { dragging = false; });
+    stage.addEventListener('keydown', e => {
+      if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); audio.paused ? doPlay() : audio.pause(); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); seekTo(now() + 0.5); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); seekTo(now() - 0.5); }
+    });
+
+    // answers table
+    const at = el('div', 'answers'); const tb = el('table');
+    const hr = el('tr'); ['', 'A · question only', 'B · spectrogram', 'E · spectrogram tool', 'C · spec + transcript'].forEach(h => hr.appendChild(el('th', null, h)));
+    tb.appendChild(el('thead')).appendChild(hr); const tbody = el('tbody'); tb.appendChild(tbody);
+    [['opus', 'Opus 5.5'], ['fable', 'Fable 5.2']].forEach(([k, name]) => {
+      const tr = el('tr'); const td0 = el('td'); td0.innerHTML = '<span class="key" style="background:var(--' + k + ')"></span>' + name; tr.appendChild(td0);
+      ['A', 'B', 'E', 'C'].forEach(c => { const a = d.ans[k][c]; const ok = d.gold.includes(a); const td = el('td'); td.innerHTML = a + ' <span class="' + (ok ? 'ok' : 'no') + '">' + (ok ? '✓' : '✗') + '</span>'; tr.appendChild(td); });
+      tbody.appendChild(tr);
+    });
+    at.appendChild(el('div', 'tablewrap')).appendChild(tb); box.appendChild(at);
+
+    if (d.obs && (d.obs.opus || d.obs.fable)) {
+      const det = el('details', 'said'); det.appendChild(el('summary', null, 'What the models said they saw in the spectrogram'));
+      [['opus', 'Opus 5.5'], ['fable', 'Fable 5.2']].forEach(([k, name]) => { const o = d.obs[k]; if (!o) return; const w = el('div', 'who'); w.innerHTML = '<span class="key" style="background:var(--' + k + ')"></span>' + name + ' → answered ' + o.a + (d.gold.includes(o.a) ? ' (correct)' : ' (wrong)'); det.appendChild(w); det.appendChild(el('blockquote', null, o.t)); });
+      if (d.etrace) { det.appendChild(el('div', 'who', 'Tool calls in condition E')); const tr = el('div', 'trace'); tr.textContent = d.etrace; det.appendChild(tr); }
+      box.appendChild(det);
+    }
+    if (d.note) { const n = el('div', 'note'); n.innerHTML = d.note; box.appendChild(n); }
+  });
+  // print / PDF: expand every "what the models said" block
+  const openAll = () => document.querySelectorAll('details.said').forEach(x => x.open = true);
+  window.addEventListener('beforeprint', openAll);
+  if (/[?&]print\b/.test(location.search)) openAll();
+})();
+</script>
+</body>
+</html>

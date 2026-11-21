@@ -1,0 +1,20 @@
+0
+00:00:00.000 --> 00:00:02.500
+Good morning, Mr. Smith.
+
+0
+00:00:02.500 --> 00:00:03.500
+Welcome back on board.
+
+0
+00:00:03.500 --> 00:00:04.840
+Can I get you something to drink?
+
+0
+00:00:04.840 --> 00:00:05.500
+Good morning.
+
+0
+00:00:05.500 --> 00:00:09.140
+Yes, I'll have the usual a black coffee, please.
+

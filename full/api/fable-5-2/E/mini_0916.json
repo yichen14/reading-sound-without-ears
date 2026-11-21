@@ -1,0 +1,26 @@
+{
+    "qid":  "mini_0916",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  4,
+    "tool_calls":  [
+                       "info ",
+                       "bands 0 4.576 0.032",
+                       "onsets 0 4.576",
+                       "track 2.85 4.4 0.032 900 3000",
+                       "track 2.85 4.4 0.032 250 900",
+                       "raw 3.36 4.4 0 3200",
+                       "f0 2.1 4.4 0.032",
+                       "raw 2.12 2.76 0 3200",
+                       "raw 2.76 3.4 0 3200",
+                       "raw 0 0.96 0 3200",
+                       "raw 0.9 1.8 0 3200",
+                       "raw 2.6 4.4 3000 8000"
+                   ],
+    "input_tokens":  10,
+    "output_tokens":  9780,
+    "cache_read":  14151,
+    "cache_write":  18159,
+    "text":  "{\"answer\":\"C\"}",
+    "error":  null
+}

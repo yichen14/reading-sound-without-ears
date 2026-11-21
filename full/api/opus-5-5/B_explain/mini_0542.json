@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0542",
+    "answer":  "B",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  1437,
+    "output_tokens":  534,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\": \"The main vocal line has clear harmonic stacks with a fundamental around 700â900 Hz. It shows bright swooping arcs, for example around 0.3 s, 1.8â3 s, 3.6 s and 5.0â5.6 s, with harmonics extending to around 2â5 kHz. A fundamental this high fits a high-pitched female voice. It rules out flat male vocals and an operatic tenor, both of which would sit roughly in the 100â500 Hz range. The pitch glides are expressive rather than flat. There is one dominant sliding contour rather than several parallel independent voices, which argues against a harmonized choir.\", \"answer\": \"B\"}",
+    "error":  null
+}

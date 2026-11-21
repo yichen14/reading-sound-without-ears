@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0001",
+    "answer":  "B",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  1414,
+    "output_tokens":  525,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\":\"In the 0-2 kHz zoom, the voiced segments show clearly separated harmonics spaced roughly 200-250 Hz apart (e.g. near the start and around 5.8-6.3 s), which puts the fundamental at about 200-250 Hz. That is too high for a typical adult man (around 100-130 Hz), which rules out C, and is lower than a typical young child (often 300 Hz or more), which makes A less likely. The 0-8 kHz view shows adult-like formant structure and fluent, rapid syllable rate, with strong fricative energy up to 8 kHz. A teenager cannot be excluded on pitch alone, but an adult female voice is the best fit, so B.\",\"answer\":\"B\"}",
+    "error":  null
+}

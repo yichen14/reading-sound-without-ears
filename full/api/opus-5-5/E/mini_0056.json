@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0056",
+    "answer":  "B",
+    "stop_reason":  "end_turn",
+    "rounds":  2,
+    "tool_calls":  [
+                       "track 0 10 0.15 500 4000"
+                   ],
+    "input_tokens":  6,
+    "output_tokens":  379,
+    "cache_read":  1503,
+    "cache_write":  2328,
+    "text":  "{\"answer\":\"B\"}",
+    "error":  null
+}

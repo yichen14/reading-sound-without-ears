@@ -1,0 +1,8 @@
+0
+00:00:00.000 --> 00:00:04.000
+Good morning. How can I assist you today with your banking needs?
+
+0
+00:00:04.000 --> 00:00:08.000
+Hi. I need some information about opening a new savings account.
+

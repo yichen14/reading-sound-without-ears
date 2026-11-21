@@ -1,0 +1,24 @@
+{
+    "qid":  "mini_0550",
+    "answer":  "A",
+    "stop_reason":  "end_turn",
+    "rounds":  6,
+    "tool_calls":  [
+                       "info ",
+                       "f0 0 10 0.5",
+                       "bands 0 10 0.5",
+                       "track 0 10 0.25 200 1200",
+                       "track 0 5 0.1 1000 4000",
+                       "peaks 0 10 60 2000",
+                       "track 0 3 0.1 300 1000",
+                       "raw 0 10 1000 4000",
+                       "track 0 1.5 0.04 650 950",
+                       "track 5 10 0.1 300 1000"
+                   ],
+    "input_tokens":  14,
+    "output_tokens":  2213,
+    "cache_read":  18650,
+    "cache_write":  5148,
+    "text":  "{\"observations\": \"The mix is loud and dense, with strong bass and noisiness of 4â6. The f0 estimator found little salience overall, so these measurements don\u0027t settle the question. The clearest clue: from 0 to 1.5 s a high pitched line wavers smoothly between about 735 and 790 Hz (roughly F#5âG5), cycling about 4 times per second with a swing of about Â±3.5%. That looks like vocal vibrato in a soprano range. Next come sustained notes at about 880 Hz (2â3 s) and about 440 Hz (5.5â8.5 s), then 784 Hz (8.8â9.1 s). These pitches are too high for a typical male voice, so I rule out B. A child\u0027s voice is possible but less likely given how wide and steady the vibrato is (C). An instrument could produce this pattern too, so D is not excluded, but the vibrato-like wavering points to a singer. This is a best guess, not a certain identification.\", \"answer\": \"A\"}",
+    "error":  null
+}

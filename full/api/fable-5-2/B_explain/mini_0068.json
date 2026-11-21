@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0068",
+    "answer":  "D",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  1427,
+    "output_tokens":  326,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\":\"Broadband noise band above ~3 kHz runs from 0 to ~3.4 s and again ~3.8 to 8.8 s, steady and hiss-like, covering most of the clip. Harmonic voiced speech (stacked harmonics below ~1 kHz) appears only in shorter bursts at ~0.3-3.7 s, 4.2-5.0 s and 5.8-6.8 s. Descending chirp-like sweeps at ~0.3-0.8 s and ~6.0-6.5 s are brief. This rules in Hiss (D) as longest and rules out speech (A), chirp (B) and rustle (C).\",\"answer\":\"D\"}",
+    "error":  null
+}

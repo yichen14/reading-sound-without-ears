@@ -1,0 +1,26 @@
+{
+    "qid":  "mini_0011",
+    "answer":  "A",
+    "stop_reason":  "end_turn",
+    "rounds":  4,
+    "tool_calls":  [
+                       "info ",
+                       "bands 0 9.984 0.25",
+                       "f0 0 9.984 0.25",
+                       "onsets 0 9.984",
+                       "peaks 0 9.984",
+                       "track 7.2 10 0.1 300 1200",
+                       "peaks 0.4 2.7",
+                       "bands 0.2 3 0.1",
+                       "peaks 7.6 10",
+                       "peaks 3 7.2",
+                       "raw 0.3 2.8 0 1000",
+                       "track 0.3 2.8 0.1 80 600"
+                   ],
+    "input_tokens":  10,
+    "output_tokens":  2310,
+    "cache_read":  9410,
+    "cache_write":  6661,
+    "text":  "{\"observations\":\"The roaring section runs about 0.3â2.7 s, with bursts starting near 0.5, 1.3 and 2.4 s. Its energy is concentrated very low, below ~350 Hz, with closely spaced peaks at roughly 65, 115, 158, 197, 246 and 290 Hz (spacing ~45 Hz, suggesting a very low fundamental) and a weaker resonance near 800â850 Hz. Noisiness is low to moderate, so it is a deep, partly harmonic roar rather than a hiss. A low rumble continues from 3â7 s. This deep, sub-300 Hz, multi-burst pattern fits a big-cat (lion) roar best; dog barks/growls and wolf howls sit higher and are shorter or more tonal, and a bear roar would typically carry more harsh mid-frequency energy. A separate steady pure tone at ~534 Hz from 7.8â10 s is not a roar and was not used. The choice of lion over bear is a best fit from the spectrum, not a certain identification.\",\"answer\":\"A\"}",
+    "error":  null
+}

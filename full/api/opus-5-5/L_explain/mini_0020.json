@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0020",
+    "answer":  "A",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  477,
+    "output_tokens":  101,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\": \"I have no acoustic information about this clip; only the question, options and 10 s length are available. I am therefore relying on a prior: in audio-classification datasets, adult male speech is the most common speech source. This guess does not rule out the woman, child or robot options on evidence.\", \"answer\": \"A\"}",
+    "error":  null
+}

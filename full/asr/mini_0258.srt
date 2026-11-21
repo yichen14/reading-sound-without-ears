@@ -1,0 +1,36 @@
+0
+00:00:00.000 --> 00:00:02.000
+(clap)
+
+0
+00:00:02.000 --> 00:00:09.300
+- Thank you for calling Sprint.
+
+0
+00:00:09.300 --> 00:00:11.500
+We care about everybody.
+
+0
+00:00:11.500 --> 00:00:12.800
+How can I help you?
+
+0
+00:00:12.800 --> 00:00:15.900
+- Hi, I've been on the phone for an hour
+
+0
+00:00:15.900 --> 00:00:20.060
+trying to get a little discrepancy on my bill fixed.
+
+0
+00:00:20.060 --> 00:00:25.720
+I was charged for $200 worth of calls that I didn't make.
+
+0
+00:00:25.720 --> 00:00:27.980
+- Are you sure you didn't make them?
+
+0
+00:00:27.980 --> 00:00:28.820
+I'm Pauline.
+

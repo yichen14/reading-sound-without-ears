@@ -1,0 +1,20 @@
+{
+    "qid":  "mini_0864",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  3,
+    "tool_calls":  [
+                       "info ",
+                       "onsets 0 9.184",
+                       "bands 0 9.184 0.3",
+                       "peaks 0 9.184",
+                       "track 0 9.184 0.3 200 1200",
+                       "track 0 9.184 0.3 3000 5000"
+                   ],
+    "input_tokens":  8,
+    "output_tokens":  830,
+    "cache_read":  4097,
+    "cache_write":  3480,
+    "text":  "{\"observations\":\"Loud, steady broadband noise (noisiness 6-8, energy across 500 Hz-8 kHz) with stable motor harmonics near 695, 1042, 2084 and 4169 Hz during 0-0.3 s and 4.5-7.3 s. Twice (about 0.3-4.2 s and from 7.3 s) the level decays smoothly and the high bands fade first, which looks like a motor spinning down, followed by an abrupt restart at about 4.5 s. Only 5 onsets in the whole clip, so no discrete clicks: rules out typing (D). Steady tonal whine rather than irregular crackle: rules out frying (A). A high-pitched 4 kHz whine with fast spin-up/down and strong broadband airflow noise fits a vacuum cleaner being switched off and on better than a washing machine\u0027s low-frequency drum/water sounds (B).\",\"answer\":\"C\"}",
+    "error":  null
+}

@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0825",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  1424,
+    "output_tokens":  232,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\":\"Broadband noise swells recur roughly every 7-8 s (peaks near 0-1.5 s, 7-9 s, 15-17 s, 21-23 s), each with a fairly sudden onset then a gradual decay of high frequencies up to 8 kHz, with quiet gaps between (e.g. 3-5.5 s, 11-13 s, 18-20 s). No harmonic structure, speech formants or tonal horns/engines are visible. This periodic wash pattern matches waves breaking on a shore, supporting C; it argues against A and B (no voices or vehicle tones) and against D (wind would be more irregular and low-frequency dominated).\",\"answer\":\"C\"}",
+    "error":  null
+}

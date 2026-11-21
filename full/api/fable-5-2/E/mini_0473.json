@@ -1,0 +1,23 @@
+{
+    "qid":  "mini_0473",
+    "answer":  "B",
+    "stop_reason":  "end_turn",
+    "rounds":  4,
+    "tool_calls":  [
+                       "info ",
+                       "onsets 0 9.984",
+                       "bands 0 9.984 0.1",
+                       "track 0 9.984 0.1 40 260",
+                       "chroma 0 9.984 0.3",
+                       "track 0 9.984 0.1 250 2000",
+                       "track 0 9.984 0.064 50 180",
+                       "peaks 0 9.984",
+                       "f0 0 9.984 0.1"
+                   ],
+    "input_tokens":  10,
+    "output_tokens":  5926,
+    "cache_read":  11223,
+    "cache_write":  10547,
+    "text":  "{\"answer\":\"B\"}",
+    "error":  null
+}

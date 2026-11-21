@@ -1,0 +1,22 @@
+{
+    "qid":  "mini_0443",
+    "answer":  "D",
+    "stop_reason":  "end_turn",
+    "rounds":  3,
+    "tool_calls":  [
+                       "info ",
+                       "onsets 0 30.016",
+                       "peaks 0 30.016",
+                       "bands 0 30.016 1",
+                       "chroma 0 30.016 2",
+                       "track 7 20 0.18 200 1200",
+                       "track 0 30 0.25 60 200",
+                       "peaks 8 15 50 4000"
+                   ],
+    "input_tokens":  8,
+    "output_tokens":  1566,
+    "cache_read":  4718,
+    "cache_write":  5865,
+    "text":  "{\"answer\":\"D\"}",
+    "error":  null
+}

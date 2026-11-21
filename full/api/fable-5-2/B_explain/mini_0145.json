@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0145",
+    "answer":  "D",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  1403,
+    "output_tokens":  911,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\":\"Black gaps at about 4.0, 6.4 and 8.0 s split the clip into four turns. Turn 1 (0-3 s) has closely spaced harmonics, about 100 Hz pitch, suggesting a low male voice. Turn 2 (4.1-6.3 s) has wider spacing, about 150 Hz, and a different background level. Turn 3 (6.5-7.9 s) has a much higher, wavy fundamental near 350-400 Hz over a noisy background, clearly a different voice. Turn 4 (8.1-9.4 s) is around 170-200 Hz, similar to turn 2. This is an estimate from pitch and background differences: three distinct voices fits best, ruling out one and making six implausible for four short turns; two is possible but less likely.\",\"answer\":\"D\"}",
+    "error":  null
+}

@@ -1,0 +1,25 @@
+{
+    "qid":  "mini_0006",
+    "answer":  "A",
+    "stop_reason":  "end_turn",
+    "rounds":  4,
+    "tool_calls":  [
+                       "info ",
+                       "f0 0 9.984 0.2",
+                       "peaks 0 9.984 50 4000",
+                       "peaks 1.5 2.5 60 1500",
+                       "peaks 3.3 4 60 1500",
+                       "peaks 8 8.4 60 1500",
+                       "bands 0 9.984 0.25",
+                       "track 0 9.984 0.1 80 400",
+                       "peaks 6.25 6.6 60 1500",
+                       "peaks 3.5 3.8 60 1500",
+                       "f0 6.2 8.5 0.064"
+                   ],
+    "input_tokens":  10,
+    "output_tokens":  1735,
+    "cache_read":  8993,
+    "cache_write":  6049,
+    "text":  "{\"observations\":\"Speech bursts sit at about 1.5-2.5 s, 3.25-5.25 s and 6.25-8.5 s, where noisiness drops to 0-3 against a noisy background. In voiced stretches the f0 estimate clusters around 175-225 Hz (e.g. 187 Hz at 8.0-8.4 s, 192-223 Hz at 6.3-7.0 s), though salience is low. At 8.0-8.4 s the spectral peaks at ~374, 559, 750 and 931 Hz are spaced ~187 Hz apart, consistent with a ~187 Hz fundamental. The pitch varies naturally between bursts rather than staying flat, which argues against a robot. That range is too high for a typical man (~85-155 Hz) and below a typical child (~250-400 Hz), and fits an adult woman.\",\"answer\":\"A\"}",
+    "error":  null
+}

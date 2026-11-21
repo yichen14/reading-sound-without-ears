@@ -1,0 +1,22 @@
+{
+    "qid":  "mini_0068",
+    "answer":  "D",
+    "stop_reason":  "end_turn",
+    "rounds":  3,
+    "tool_calls":  [
+                       "info ",
+                       "bands 0 9.984 0.25",
+                       "f0 0 9.984 0.25",
+                       "onsets 0 9.984",
+                       "peaks 7 8.4 2000 8000",
+                       "track 6.8 9 0.064 3000 8000",
+                       "raw 0 10 3000 8000",
+                       "peaks 9 10 2000 8000"
+                   ],
+    "input_tokens":  8,
+    "output_tokens":  1417,
+    "cache_read":  4581,
+    "cache_write":  5220,
+    "text":  "{\"observations\":\"A steady broadband noise band at about 3â8 kHz (strongest near 5â5.7 kHz) runs continuously from 0 to about 8.5 s at an almost constant level, then fades. It has high noisiness, no stable tonal peaks and no sweeping pitch contour (the peak track jumps randomly between 4.8 and 5.6 kHz), which fits a hiss rather than chirps/tweets, so B is unlikely. Low/mid-frequency energy (125 Hzâ1.5 kHz) with f0 estimates around 120â150 Hz, consistent with a male voice, appears only in bursts at roughly 2.25â3.5 s, 4â5 s and 5.75â6.75 s, about 3â4 s in total, so A is shorter. Nothing suggests a long, irregular rustle (C). The hiss-like sound is the longest, pointing to D.\",\"answer\":\"D\"}",
+    "error":  null
+}

@@ -1,0 +1,20 @@
+{
+    "qid":  "mini_0006",
+    "answer":  "A",
+    "stop_reason":  "end_turn",
+    "rounds":  5,
+    "tool_calls":  [
+                       "f0 0 10 0.5",
+                       "info ",
+                       "track 0 10 0.25 80 450",
+                       "peaks 5.25 6.25 80 3000",
+                       "track 1.5 2.5 0.064 150 1200",
+                       "raw 5 7 100 1600"
+                   ],
+    "input_tokens":  12,
+    "output_tokens":  1612,
+    "cache_read":  9486,
+    "cache_write":  4355,
+    "text":  "{\"observations\": \"1. Pitch estimates were unreliable because the clip is noisy: salience was below 6% and the values ranged from about 100 to 650 Hz. The strongest low-frequency peak sat around 350â440 Hz for the whole clip. Taken alone, that could mean a child\u0027s fundamental or the second harmonic of an adult woman\u0027s voice.\\n2. I checked the detailed spectrum in the voiced section at 6.3â6.9 s. Strong components appear near 422, 617, 711â805, 992 and 1375 Hz, which are roughly 190â200 Hz apart. That spacing points to a fundamental of about 200 Hz, with a weak first harmonic. The strong energy near 617 Hz is not a multiple of ~400 Hz, which goes against a child with a ~400 Hz fundamental.\\n3. Very little energy falls below 125 Hz, and the pitch is not in the ~100â130 Hz range typical of a man, which rules out a man.\\n4. I saw no signs of synthetic or robotic speech, such as a flat, unvarying pitch, so I ruled out a robot. This point is less certain than the others.\\nA fundamental near 200 Hz fits an adult woman best, so I chose A.\", \"answer\": \"A\"}",
+    "error":  null
+}

@@ -1,0 +1,26 @@
+{
+    "qid":  "mini_0326",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  4,
+    "tool_calls":  [
+                       "info ",
+                       "onsets 0 9.984",
+                       "bands 0 9.984 0.5",
+                       "peaks 0 9.984",
+                       "track 6.5 10 0.1 30 200",
+                       "bands 6.5 10 0.1",
+                       "f0 0 9.984 0.25",
+                       "chroma 0 9.984 1",
+                       "peaks 8 9.2",
+                       "peaks 9.3 10",
+                       "peaks 0 2",
+                       "track 7 10 0.1 250 1000"
+                   ],
+    "input_tokens":  10,
+    "output_tokens":  1711,
+    "cache_read":  8076,
+    "cache_write":  5626,
+    "text":  "{\"answer\":\"C\"}",
+    "error":  null
+}

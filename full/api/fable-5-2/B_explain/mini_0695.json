@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0695",
+    "answer":  "B",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  1432,
+    "output_tokens":  777,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\":\"Broadband noise runs continuously for the whole 30 s, with dense, evenly spaced vertical striations (regular pulses) and a constant low-frequency band near 0 Hz. The only notable change is a slow, gradual rising tonal sweep from roughly 400 Hz to 1 kHz between about 13 s and 23 s, then a quick drop. There are no long silent gaps or sparse events (against A), no abrupt changes in pulse rate (against D), and no chaotic bursts of activity (against C). The even, unchanging pulse texture best fits a moderate, steady pace (B), though this is a judgement from texture rather than a clear beat.\",\"answer\":\"B\"}",
+    "error":  null
+}

@@ -1,0 +1,19 @@
+{
+    "qid":  "mini_0174",
+    "answer":  "B",
+    "stop_reason":  "end_turn",
+    "rounds":  3,
+    "tool_calls":  [
+                       "info ",
+                       "onsets 0 14.72",
+                       "f0 0 14.72 0.1",
+                       "bands 0 7.4 0.064",
+                       "bands 7.4 14.7 0.064"
+                   ],
+    "input_tokens":  8,
+    "output_tokens":  1087,
+    "cache_read":  5091,
+    "cache_write":  7029,
+    "text":  "{\"observations\":\"The loudness envelope shows near-continuous speech for the whole 14.7 s, with only two short pauses (about 3.8-4.2 s and 10.75-11.05 s). Band levels at 64 ms steps fluctuate rapidly, roughly 4 syllable-like energy bumps per second (e.g. about 15 in 0-3.7 s), so around 50+ syllables and an estimated 35-40 words in total. Voiced pitch sits around 130-180 Hz throughout, consistent with fluent speech at a normal rate. Most words in running speech carry a stressed vowel, so a count near the total word count fits: this rules out three, and makes eleven or fifteen too low for 14 s of dense speech. Thirty-two (B) is the best match; this is an estimate from speech rate, not a direct word count.\",\"answer\":\"B\"}",
+    "error":  null
+}

@@ -1,0 +1,20 @@
+{
+    "qid":  "mini_0933",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  3,
+    "tool_calls":  [
+                       "info ",
+                       "f0 0 6.688 0.1",
+                       "bands 0 6.688 0.2",
+                       "f0 4.2 6.7 0.032",
+                       "bands 5.5 6.7 0.032",
+                       "onsets 0 6.688"
+                   ],
+    "input_tokens":  8,
+    "output_tokens":  832,
+    "cache_read":  4591,
+    "cache_write":  4881,
+    "text":  "{\"answer\":\"C\"}",
+    "error":  null
+}

@@ -1,0 +1,24 @@
+0
+00:00:00.000 --> 00:00:05.320
+for our trip. By attaching RFID tags to my clothing, it will enable my laptop to read
+
+0
+00:00:05.320 --> 00:00:10.080
+and identify the items with this wand. I will then cross-reference them against destination,
+
+0
+00:00:10.080 --> 00:00:14.080
+anticipate activity spectrum, weather conditions, duration of trip, etc.
+
+0
+00:00:14.080 --> 00:00:22.680
+Well, that does sound much simpler. How long is this going to take?
+
+0
+00:00:22.680 --> 00:00:26.680
+Assuming I can keep up this pace, three hours, eleven minutes. Plus, however long it takes
+
+0
+00:00:26.680 --> 00:00:28.680
+to conclude this fairly pointless conversation.
+

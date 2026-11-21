@@ -1,0 +1,12 @@
+0
+00:00:00.000 --> 00:00:02.000
+Mae'r ddweud y gwaith yw'r cyflwyno.
+
+0
+00:00:02.000 --> 00:00:05.000
+Mae'n gwybod yn ysgol ymlaen i gael ysgol.
+
+0
+00:00:05.000 --> 00:00:09.000
+Mae'n ddweud y gwaith ymlaen i gael y gwaith arall.
+

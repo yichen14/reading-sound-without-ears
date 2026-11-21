@@ -1,0 +1,15 @@
+{
+    "qid":  "mini_0001",
+    "answer":  "B",
+    "stop_reason":  "end_turn",
+    "rounds":  1,
+    "tool_calls":  [
+
+                   ],
+    "input_tokens":  1414,
+    "output_tokens":  649,
+    "cache_read":  0,
+    "cache_write":  0,
+    "text":  "{\"observations\": \"In the 0-2 kHz zoom (about 8.3 Hz per pixel), the voiced segments show widely spaced harmonics. The lowest harmonic sits about 25 px above the bottom, roughly 200-230 Hz, and successive harmonics are about 28-30 px apart, roughly 230-250 Hz. This pitch is typical of an adult female voice. It is far above an adult male range of about 85-150 Hz, which rules out C. It is somewhat below the 300+ Hz typical of a child, which argues against A. A teenager is ambiguous and less specific than the female-typical pitch seen here, so D is less likely. Formant energy extends strongly above 3 kHz. Toward the end (about 9.3-9.8 s) the pitch rises expressively, consistent with animated female speech.\", \"answer\": \"B\"}",
+    "error":  null
+}

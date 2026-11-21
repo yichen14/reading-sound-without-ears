@@ -1,0 +1,18 @@
+{
+    "qid":  "mini_0080",
+    "answer":  "D",
+    "stop_reason":  "end_turn",
+    "rounds":  2,
+    "tool_calls":  [
+                       "info ",
+                       "bands 0 13.888 0.25",
+                       "f0 0 13.888 0.2",
+                       "onsets 0 13.888"
+                   ],
+    "input_tokens":  6,
+    "output_tokens":  543,
+    "cache_read":  1555,
+    "cache_write":  3545,
+    "text":  "{\"observations\":\"The loudness envelope shows five separate loud tonal bursts, each about 2 s long: roughly 0â1.9 s, 2.8â4.7 s, 5.6â7.5 s, 8.4â10.3 s and 11.2â13.1 s. They are separated by quiet gaps of about 0.75 s (around 2.0â2.75, 4.75â5.5, 7.5â8.25, 10.25â11.0 and after 13.25 s). Each burst has the same pitch contour, rising from about 220 Hz to about 295 Hz, with energy spread from 250 Hz to 3 kHz, which fits a repeated moo. The onset pattern also repeats with a period of about 2.8 s, five times. Five moos supports D and rules out 3, 4 and 6.\",\"answer\":\"D\"}",
+    "error":  null
+}

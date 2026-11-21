@@ -1,0 +1,8 @@
+0
+00:00:00.000 --> 00:00:07.000
+Happy New Year! We wish you a Merry Christmas!
+
+0
+00:00:07.000 --> 00:00:10.000
+Happy New Year!
+

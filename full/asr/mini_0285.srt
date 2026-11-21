@@ -1,0 +1,20 @@
+0
+00:00:00.000 --> 00:00:02.000
+Hi, I'm your speech therapist.
+
+0
+00:00:02.000 --> 00:00:03.560
+How can I assist you today?
+
+0
+00:00:03.560 --> 00:00:05.840
+Hi, I've been struggling with stuttering,
+
+0
+00:00:05.840 --> 00:00:07.540
+especially when I'm nervous.
+
+0
+00:00:07.540 --> 00:00:08.840
+Can you help me with that?
+

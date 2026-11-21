@@ -1,0 +1,20 @@
+{
+    "qid":  "mini_0854",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  3,
+    "tool_calls":  [
+                       "info ",
+                       "f0 0 9.984 0.2",
+                       "bands 0 9.984 0.25",
+                       "onsets 0 9.984",
+                       "peaks 4 10",
+                       "track 0 9.984 0.2 1500 4000"
+                   ],
+    "input_tokens":  8,
+    "output_tokens":  750,
+    "cache_read":  4673,
+    "cache_write":  4001,
+    "text":  "{\"observations\":\"The clip is dominated by very narrow, fixed-frequency tones at about 2740, 2780 and 2880 Hz that step among these discrete values and grow louder from about 4 s to the end. Noisiness reads 0 (purely tonal) for the 2-3 kHz band, the loudness is constant, and there are no harmonic voice stacks or usable low fundamental (f0 salience under 6%). Stable electronic beeper tones near 2.7-2.9 kHz match a fire/smoke alarm (C). There are no speech formants or syllable modulation (rules out A), no gliding harmonic cry at 300-600 Hz (rules out B), and no broadband impulsive bursts (rules out D).\",\"answer\":\"C\"}",
+    "error":  null
+}

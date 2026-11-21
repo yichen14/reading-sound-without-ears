@@ -1,0 +1,20 @@
+{
+    "qid":  "mini_0622",
+    "answer":  "B",
+    "stop_reason":  "end_turn",
+    "rounds":  3,
+    "tool_calls":  [
+                       "info ",
+                       "onsets 0 29.984",
+                       "bands 0 29.984 1",
+                       "bands 14 18 0.1",
+                       "peaks 0 29.984 20 2000",
+                       "f0 4 10 0.25"
+                   ],
+    "input_tokens":  8,
+    "output_tokens":  1229,
+    "cache_read":  3920,
+    "cache_write":  3831,
+    "text":  "{\"answer\":\"B\"}",
+    "error":  null
+}

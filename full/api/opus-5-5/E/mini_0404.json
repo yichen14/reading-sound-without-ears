@@ -1,0 +1,24 @@
+{
+    "qid":  "mini_0404",
+    "answer":  "A",
+    "stop_reason":  "end_turn",
+    "rounds":  8,
+    "tool_calls":  [
+                       "chroma 14.69 17.14",
+                       "f0 14.69 17.14 0.25",
+                       "peaks 14.69 17.14 40 400",
+                       "chroma 14.69 17.14 0.5",
+                       "raw 14.69 17.14 60 250",
+                       "peaks 14.69 17.14 80 230",
+                       "chroma 0 30 2.5",
+                       "track 12 19 0.5 60 240",
+                       "peaks 14.69 17.14 200 1200",
+                       "raw 14.69 17.14 30 130"
+                   ],
+    "input_tokens":  18,
+    "output_tokens":  2866,
+    "cache_read":  24628,
+    "cache_write":  6810,
+    "text":  "{\"answer\":\"A\"}",
+    "error":  null
+}

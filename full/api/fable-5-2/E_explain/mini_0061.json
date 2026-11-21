@@ -1,0 +1,17 @@
+{
+    "qid":  "mini_0061",
+    "answer":  "C",
+    "stop_reason":  "end_turn",
+    "rounds":  2,
+    "tool_calls":  [
+                       "info ",
+                       "onsets 0 11.072",
+                       "bands 0 11.072 0.1"
+                   ],
+    "input_tokens":  6,
+    "output_tokens":  412,
+    "cache_read":  1558,
+    "cache_write":  3345,
+    "text":  "{\"observations\":\"The band profile shows four identical events at about 0.0, 2.7, 5.5 and 8.3 s. Each is a sharp broadband burst (energy across roughly 125 Hz to 8 kHz) followed by a tonal ringing decay in the 250-500 Hz band (plus a shorter one at 2-3 kHz) lasting about 1.5 s, then silence. That pattern fits a struck glass ringing out. The loudness envelope likewise shows four peaks with decays. The onset detector listed only three (2.72, 5.54, 8.32 s) because the first tap sits at the very start of the clip. Four taps supports C and rules out 2, 3 and 5.\",\"answer\":\"C\"}",
+    "error":  null
+}

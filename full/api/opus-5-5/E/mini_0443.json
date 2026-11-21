@@ -1,0 +1,18 @@
+{
+    "qid":  "mini_0443",
+    "answer":  "A",
+    "stop_reason":  "end_turn",
+    "rounds":  3,
+    "tool_calls":  [
+                       "info ",
+                       "chroma 0 30 3",
+                       "onsets 0 30.016",
+                       "bands 8 12 0.25"
+                   ],
+    "input_tokens":  8,
+    "output_tokens":  550,
+    "cache_read":  3948,
+    "cache_write":  2876,
+    "text":  "{\"answer\":\"A\"}",
+    "error":  null
+}
