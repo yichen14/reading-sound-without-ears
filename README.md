@@ -2,8 +2,8 @@
 
 Code, prompts, raw model outputs and scores for the blog post **Reading Sound Without Ears**: two frontier language models (Claude Fable 5.2 and Claude Opus 5.5) answer all 1,000 questions of [MMAU test-mini](https://arxiv.org/abs/2410.19168) **without any audio input**, from spectrogram images, a numeric spectrogram they can query with a tool, a Whisper transcript, or nothing at all.
 
-- Post (interactive, with playable examples): [`blog/reading-sound-without-ears.html`](blog/reading-sound-without-ears.html)
-- Static PDF: [`blog/reading-sound-without-ears.pdf`](blog/reading-sound-without-ears.pdf)
+- **Read the post:** [yichen14.github.io/posts/reading-sound-without-ears.html](https://yichen14.github.io/posts/reading-sound-without-ears.html) (English and Chinese, with playable, draggable examples)
+- Standalone single-file version: [`blog/reading-sound-without-ears.html`](blog/reading-sound-without-ears.html); static PDF: [`blog/reading-sound-without-ears.pdf`](blog/reading-sound-without-ears.pdf)
 
 ## Main results (MMAU test-mini, accuracy %)
 
@@ -34,7 +34,8 @@ full/                    MMAU test-mini run
   explain_ids.txt        the 32 questions re-run with explanations
 pro/                     30-question MMAU-Pro pilot (A, L, B, D, C)
   results.csv            per-question answers; long_audio_check.csv: corrupted-audio scan (see below)
-blog/                    post source (template.html), built HTML/PDF, the 16 example clips and spectrograms
+blog/                    standalone post (template.html -> built HTML/PDF), the bilingual site version
+                         (site_post.html + site_figures.js), the example clips and spectrograms
 ```
 
 ## Reproducing
@@ -56,8 +57,9 @@ $root = (Get-Location).Path
 .\scripts\api_collect.ps1  -Root $root
 .\scripts\full_score.ps1   -Root $root -Conds A,L,B,E -Csv api_results_L.csv
 .\scripts\full_score.ps1   -Root $root -Conds A,B,C,D,E -Csv api_results.csv
-# 5. the post (needs the explanation re-runs, see the end of api_launch.ps1)
-.\scripts\build_blog.ps1   -Root $root
+# 5. the post (needs the explanation re-runs, see the end of api_launch.ps1);
+#    -SiteDir also writes the bilingual version into a checkout of the personal site
+.\scripts\build_blog.ps1   -Root $root [-SiteDir <path to site checkout>]
 ```
 
 One question per request, adaptive thinking, effort `high`, answers constrained to the option letters with a JSON schema. The full run on this page cost about $249 at standard API prices, two thirds of it Fable's tool-use runs in condition E. Each condition was run once; re-asking 32 questions changed 14% of answers, so treat differences of one or two points as noise.
@@ -86,9 +88,11 @@ If you use the results or the corrupted-audio finding, please cite this reposito
 ```bibtex
 @misc{reading_sound_without_ears_2026,
   title        = {Reading Sound Without Ears: What Language Models Read in Spectrograms},
-  author       = {yichen14},
+  author       = {Lu, Yichen},
+  howpublished = {Blog post},
   year         = {2026},
-  howpublished = {\url{https://github.com/yichen14/reading-sound-without-ears}}
+  month        = nov,
+  url          = {https://yichen14.github.io/posts/reading-sound-without-ears.html}
 }
 
 @article{sakshi2025mmau,
